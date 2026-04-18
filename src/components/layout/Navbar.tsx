@@ -87,7 +87,8 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-primary shadow-2xl lg:hidden"
+            style={{ backgroundColor: "var(--primary)" }}
+            className="fixed inset-0 z-[100] h-screen w-screen overflow-y-auto shadow-2xl lg:hidden"
           >
             <div className="container-page flex h-16 items-center justify-between md:h-[72px]">
               <div className="flex items-center gap-2">
