@@ -82,14 +82,23 @@ export function Navbar() {
 
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            style={{ backgroundColor: "var(--primary)" }}
-            className="fixed inset-0 z-[100] h-screen w-screen overflow-y-auto shadow-2xl lg:hidden"
-          >
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 z-[90] bg-black/50 lg:hidden"
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.25, ease: "easeOut" }}
+              style={{ backgroundColor: "var(--primary)" }}
+              className="fixed inset-y-0 right-0 z-[100] flex h-screen w-[78vw] max-w-[320px] flex-col overflow-y-auto shadow-2xl lg:hidden"
+            >
             <div className="container-page flex h-16 items-center justify-between md:h-[72px]">
               <div className="flex items-center gap-2">
                 <img src={logo} alt="" className="h-8 w-8 object-contain" />
