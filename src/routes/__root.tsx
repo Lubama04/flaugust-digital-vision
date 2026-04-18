@@ -9,6 +9,22 @@ import { AuthProvider } from "@/contexts/AuthContext";
 
 import appCss from "../styles.css?url";
 
+// ============================================================
+// MÉTADONNÉES SEO — NE PAS MODIFIER
+// Chaque constante DOIT rester sur UNE SEULE ligne
+// ============================================================
+const SEO_TITLE = "Flaugust Business — Solutions Numériques, Formation & Commerce";
+const SEO_DESCRIPTION =
+  "Portail officiel de Flaugust Business — l'entreprise tchadienne qui place l'excellence numérique au service de toutes les institutions. Votre partenaire de confiance pour la transformation digitale, la formation et le commerce, en Afrique et dans le monde.";
+const SEO_SHORT_DESC =
+  "Portail officiel de Flaugust Business — l'entreprise tchadienne qui place l'excellence numérique au service de toutes les institutions.";
+const SEO_KEYWORDS =
+  "développement web, applications mobiles, SaaS, intelligence artificielle, formation, gestion de projets, import-export, transformation digitale, Afrique, Tchad, institutions";
+const SEO_IMAGE =
+  "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5";
+const SEO_URL = "https://www.flaugustbusiness.com";
+const SEO_AUTHOR = "LUBAMA Jean Chrysostome ZACEI";
+
 interface RouterContext {
   queryClient: QueryClient;
 }
@@ -38,57 +54,22 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: `Flaugust Business — Solutions Numériques, Formation & Commerce` },
-      {
-        name: "description",
-        content: `Portail officiel de Flaugust Business — l'entreprise tchadienne qui place l'excellence numérique au service de toutes les institutions. Votre partenaire de confiance pour la transformation digitale, la formation et le commerce, en Afrique et dans le monde.`,
-      },
-      { name: "author", content: "LUBAMA Jean Chrysostome ZACEI" },
-      {
-        name: "keywords",
-        content:
-          "développement web, applications mobiles, SaaS, intelligence artificielle, formation, gestion de projets, import-export, transformation digitale, Afrique, Tchad, institutions",
-      },
+      { title: SEO_TITLE },
+      { name: "description", content: SEO_DESCRIPTION },
+      { name: "author", content: SEO_AUTHOR },
+      { name: "keywords", content: SEO_KEYWORDS },
       { name: "robots", content: "index, follow" },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://www.flaugustbusiness.com" },
+      { property: "og:url", content: SEO_URL },
       { property: "og:site_name", content: "Flaugust Business" },
       { property: "og:locale", content: "fr_FR" },
-      { property: "og:title", content: `Flaugust Business — Solutions Numériques, Formation & Commerce` },
-      {
-        property: "og:description",
-        content: `Portail officiel de Flaugust Business — l'entreprise tchadienne qui place l'excellence numérique au service de toutes les institutions. Votre partenaire de confiance pour la transformation digitale, la formation et le commerce, en Afrique et dans le monde.`,
-      },
-      {
-        property: "og:image",
-        content:
-          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5",
-      },
+      { property: "og:title", content: SEO_TITLE },
+      { property: "og:description", content: SEO_DESCRIPTION },
+      { property: "og:image", content: SEO_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: `Flaugust Business — Solutions Numériques, Formation & Commerce` },
-      {
-        name: "twitter:description",
-        content: `Portail officiel de Flaugust Business — l'entreprise tchadienne qui place l'excellence numérique au service de toutes les institutions.`,
-      },
-      {
-        name: "twitter:image",
-        content:
-          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5",
-      },
-      { title: "Flaugust Business — Solutions numériques pour l'Afrique" },
-      { property: "og:title", content: "Flaugust Business — Solutions numériques pour l'Afrique" },
-      { name: "twitter:title", content: "Flaugust Business — Solutions numériques pour l'Afrique" },
-      { name: "description", content: "Portail officiel de Flaugust Business — l'entreprise 
-tchadienne qui place l'excellence numérique au service 
-de toutes les institutions." },
-      { property: "og:description", content: "Portail officiel de Flaugust Business — l'entreprise 
-tchadienne qui place l'excellence numérique au service 
-de toutes les institutions." },
-      { name: "twitter:description", content: "Portail officiel de Flaugust Business — l'entreprise 
-tchadienne qui place l'excellence numérique au service 
-de toutes les institutions." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
+      { name: "twitter:title", content: SEO_TITLE },
+      { name: "twitter:description", content: SEO_SHORT_DESC },
+      { name: "twitter:image", content: SEO_IMAGE },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
