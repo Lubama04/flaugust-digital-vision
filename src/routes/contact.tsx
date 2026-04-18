@@ -88,11 +88,10 @@ function ContactPage() {
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined;
 
       if (!serviceId || !templateId || !publicKey) {
-        toast.success("Message reçu ! Nous vous répondrons dans les 24h.", {
+        toast.error("Configuration email manquante.", {
           description:
-            "(Configurez EmailJS dans .env pour activer l'envoi réel — voir .env.example)",
+            "Veuillez nous contacter directement par WhatsApp ou téléphone en attendant.",
         });
-        reset();
         return;
       }
 
