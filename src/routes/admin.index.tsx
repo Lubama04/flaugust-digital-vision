@@ -1,0 +1,116 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { FolderOpen, Mail, FileText, Grid } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { formatDistanceToNow } from "@/lib/dateUtils";
+
+export const Route = createFileRoute("/admin/")({
+  component: DashboardHome,
+});
+
+type Counts = { portfolio: number; unread: number; posts: number; services: number };
+type RecentMsg = { id: string; full_name: string; subject: string | null; status: string; created_at: string };
+type RecentPost = { id: string; title: string; published: boolean; updated_at: string };
+
+function DashboardHome() {
+  const [counts, setCounts] = useState<Counts>({ portfolio: 0, unread: 0, posts: 0, services: 0 });
+  const [recentMessages, setRecentMessages] = useState<RecentMsg[]>([]);
+  const [recentPosts, setRecentPosts] = useState<RecentPost[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const [p, m, b, s, rm, rp] = await Promise.all([
+        supabase.from("portfolio").select("*", { count: "exact", head: true }).eq("published", true),
+        supabase.from("contact_messages").select("*", { count: "exact", head: true }).eq("status", "unread"),
+        supabase.from("posts").select("*", { count: "exact", head: true }).eq("published", true),
+        supabase.from("services").select("*", { count: "exact", head: true }).eq("published", true),
+        supabase.from("contact_messages").select("id,full_name,subject,status,created_at").order("created_at", { ascending: false }).limit(5),
+        supabase.from("posts").select("id,title,published,updated_at").order("updated_at", { ascending: false }).limit(5),
+      ]);
+      setCounts({
+        portfolio: p.count ?? 0,
+        unread: m.count ?? 0,
+        posts: b.count ?? 0,
+        services: s.count ?? 0,
+      });
+      setRecentMessages(rm.data ?? []);
+      setRecentPosts(rp.data ?? []);
+    })();
+  }, []);
+
+  return (
+    <div className="space-y-6">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <KPI title="Projets publiés" value={counts.portfolio} icon={<FolderOpen className="h-5 w-5" />} color="#7B3415" link="/admin/portfolio" linkLabel="Voir le portfolio" />
+        <KPI title="Messages non lus" value={counts.unread} icon={<Mail className="h-5 w-5" />} color="#E88930" link="/admin/messages" linkLabel="Voir les messages" pulse={counts.unread > 0} />
+        <KPI title="Articles publiés" value={counts.posts} icon={<FileText className="h-5 w-5" />} color="#1A6B35" link="/admin/blog" linkLabel="Voir le blog" />
+        <KPI title="Services actifs" value={counts.services} icon={<Grid className="h-5 w-5" />} color="#B83080" link="/admin/services" linkLabel="Voir les services" />
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="rounded-2xl border border-border bg-card p-6">
+          <h2 className="mb-4 text-base font-bold text-foreground">Derniers messages</h2>
+          {recentMessages.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Aucun message pour le moment.</p>
+          ) : (
+            <ul className="divide-y divide-border">
+              {recentMessages.map((m) => (
+                <li key={m.id} className="flex items-center justify-between py-3 text-sm">
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate font-semibold text-foreground">{m.full_name}</div>
+                    <div className="truncate text-xs text-muted-foreground">{m.subject ?? "Sans objet"}</div>
+                  </div>
+                  <div className="ml-3 flex items-center gap-3">
+                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${m.status === "unread" ? "bg-accent/15 text-accent" : m.status === "replied" ? "bg-secondary/15 text-secondary" : "bg-muted text-muted-foreground"}`}>
+                      {m.status === "unread" ? "Nouveau" : m.status === "replied" ? "Répondu" : "Lu"}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{formatDistanceToNow(m.created_at)}</span>
+                    <Link to="/admin/messages" className="text-xs font-semibold text-primary hover:underline">Lire →</Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="rounded-2xl border border-border bg-card p-6">
+          <h2 className="mb-4 text-base font-bold text-foreground">Derniers articles</h2>
+          {recentPosts.length === 0 ? (
+            <p className="text-sm text-muted-foreground">Aucun article pour le moment.</p>
+          ) : (
+            <ul className="divide-y divide-border">
+              {recentPosts.map((p) => (
+                <li key={p.id} className="flex items-center justify-between py-3 text-sm">
+                  <div className="min-w-0 flex-1 truncate font-semibold text-foreground">{p.title}</div>
+                  <div className="ml-3 flex items-center gap-3">
+                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${p.published ? "bg-secondary/15 text-secondary" : "bg-muted text-muted-foreground"}`}>
+                      {p.published ? "Publié" : "Brouillon"}
+                    </span>
+                    <span className="text-xs text-muted-foreground">{formatDistanceToNow(p.updated_at)}</span>
+                    <Link to="/admin/blog" className="text-xs font-semibold text-primary hover:underline">Éditer →</Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function KPI({ title, value, icon, color, link, linkLabel, pulse }: { title: string; value: number; icon: React.ReactNode; color: string; link: string; linkLabel: string; pulse?: boolean }) {
+  return (
+    <div className="relative rounded-2xl border border-border bg-card p-5">
+      {pulse && <span className="absolute right-4 top-4 inline-flex h-2.5 w-2.5 rounded-full bg-red-500 ring-4 ring-red-500/30" />}
+      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: `color-mix(in oklab, ${color} 15%, transparent)`, color }}>
+        {icon}
+      </div>
+      <div className="text-3xl font-bold text-foreground">{value}</div>
+      <div className="mt-1 text-sm text-muted-foreground">{title}</div>
+      <Link to={link} className="mt-3 inline-block text-xs font-semibold text-primary hover:underline">
+        {linkLabel} →
+      </Link>
+    </div>
+  );
+}
