@@ -63,8 +63,8 @@ function AdminLayout() {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col bg-[oklch(0.18_0.005_50)] text-white lg:flex">
-        <div className="flex items-center gap-2.5 border-b border-white/10 px-5 py-4">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col bg-[oklch(0.16_0.01_50)] text-white shadow-xl lg:flex">
+        <div className="flex items-center gap-2.5 border-b border-white/15 px-5 py-4">
           <img src={logo} alt="" className="h-8 w-8 object-contain" />
           <div>
             <div className="font-display text-base font-bold">Flaugust</div>
@@ -81,10 +81,10 @@ function AdminLayout() {
               <Link
                 key={l.to}
                 to={l.to as string}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
+                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                   active
-                    ? "border-l-[3px] border-primary bg-primary/30 font-semibold text-white"
-                    : "text-white/65 hover:bg-white/5 hover:text-white"
+                    ? "bg-primary text-white shadow-sm"
+                    : "text-white/85 hover:bg-white/10 hover:text-white"
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -98,14 +98,14 @@ function AdminLayout() {
             );
           })}
         </nav>
-        <div className="border-t border-white/10 px-5 py-4">
-          <div className="mb-2 truncate text-xs text-white/50">{user?.email}</div>
+        <div className="border-t border-white/15 px-5 py-4">
+          <div className="mb-2 truncate text-xs text-white/70">{user?.email}</div>
           <button
             onClick={async () => {
               await signOut();
               router.navigate({ to: "/admin/login" });
             }}
-            className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-red-400"
+            className="flex items-center gap-2 text-sm text-white/85 transition-colors hover:text-red-400"
           >
             <LogOut className="h-4 w-4" /> Se déconnecter
           </button>
