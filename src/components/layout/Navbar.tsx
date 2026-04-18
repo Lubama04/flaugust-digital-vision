@@ -129,7 +129,8 @@ export function Navbar() {
                 Nous contacter
               </Link>
             </div>
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>
