@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Linkedin, MessageCircle } from "lucide-react";
+import { Linkedin as LinkedinIcon, MessageCircle } from "lucide-react";
 import { company } from "@/data/company";
 import { services } from "@/data/services";
 
