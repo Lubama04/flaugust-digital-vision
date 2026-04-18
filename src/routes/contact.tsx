@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Mail, Phone, MessageCircle, MapPin, Loader2 } from "lucide-react";
 import { company } from "@/data/company";
 import { FadeInSection } from "@/components/FadeInSection";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
