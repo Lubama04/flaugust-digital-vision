@@ -7,8 +7,8 @@ import logo from "@/assets/logo-flaugust.png";
 
 export const Route = createFileRoute("/admin/login")({
   beforeLoad: async () => {
-    const { data } = await supabase.auth.getSession();
-    if (data.session) throw redirect({ to: "/admin" });
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) throw redirect({ to: "/admin" });
   },
   component: LoginPage,
 });

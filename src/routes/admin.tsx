@@ -17,8 +17,8 @@ import logo from "@/assets/logo-flaugust.png";
 
 export const Route = createFileRoute("/admin")({
   beforeLoad: async ({ location }) => {
-    const { data } = await supabase.auth.getSession();
-    if (!data.session) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
       throw redirect({ to: "/admin/login", search: { redirect: location.href } });
     }
   },
