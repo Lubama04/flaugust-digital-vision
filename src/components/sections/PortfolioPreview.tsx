@@ -1,10 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
-import { portfolioItems } from "@/data/portfolio";
+import { usePortfolio } from "@/hooks/usePortfolioData";
 import { FadeInSection } from "@/components/FadeInSection";
 
 export function PortfolioPreview() {
-  const preview = portfolioItems.slice(0, 3);
+  const { data: items = [] } = usePortfolio();
+  const preview = items.slice(0, 3);
 
   return (
     <section className="bg-background py-20">
@@ -63,10 +64,12 @@ export function PortfolioPreview() {
                   ))}
                 </div>
                 <p className="mt-4 line-clamp-2 text-sm text-foreground/70">{p.challenge}</p>
-                <div className="mt-3 flex items-start gap-2 text-sm">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
-                  <span className="text-foreground/80">{p.results[0]}</span>
-                </div>
+                {p.results[0] && (
+                  <div className="mt-3 flex items-start gap-2 text-sm">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-secondary" />
+                    <span className="text-foreground/80">{p.results[0]}</span>
+                  </div>
+                )}
                 <div
                   className="mt-5 inline-flex items-center gap-1 text-sm font-semibold transition-transform group-hover:translate-x-1"
                   style={{ color: p.color }}

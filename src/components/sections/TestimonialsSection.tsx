@@ -1,8 +1,9 @@
 import { Star } from "lucide-react";
-import { testimonials } from "@/data/testimonials";
+import { useTestimonials } from "@/hooks/useTestimonialsData";
 import { FadeInSection } from "@/components/FadeInSection";
 
 export function TestimonialsSection() {
+  const { data: testimonials = [] } = useTestimonials();
   return (
     <section className="bg-primary py-20 text-white">
       <div className="container-page">
@@ -17,7 +18,7 @@ export function TestimonialsSection() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {testimonials.map((t, i) => (
-            <FadeInSection key={t.name + i} delay={i * 0.1}>
+            <FadeInSection key={t.id} delay={i * 0.1}>
               <div className="h-full rounded-xl border border-white/20 bg-white/10 p-6 backdrop-blur-sm">
                 <div className="mb-4 flex items-center gap-3">
                   <span

@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check, X } from "lucide-react";
-import { portfolioItems, portfolioCategories, type PortfolioItem } from "@/data/portfolio";
+import { portfolioCategories, type PortfolioItem } from "@/data/portfolio";
+import { usePortfolio } from "@/hooks/usePortfolioData";
 import { FadeInSection } from "@/components/FadeInSection";
 
 export const Route = createFileRoute("/portfolio")({
@@ -27,6 +28,7 @@ export const Route = createFileRoute("/portfolio")({
 function PortfolioPage() {
   const [active, setActive] = useState<string>("Tous");
   const [selected, setSelected] = useState<PortfolioItem | null>(null);
+  const { data: portfolioItems = [] } = usePortfolio();
 
   const filtered =
     active === "Tous"
