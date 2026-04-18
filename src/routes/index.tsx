@@ -1,26 +1,45 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Hero } from "@/components/sections/Hero";
+import { StatsSection } from "@/components/sections/StatsSection";
+import { ServicesOverview } from "@/components/sections/ServicesOverview";
+import { WhyFlaugust } from "@/components/sections/WhyFlaugust";
+import { PortfolioPreview } from "@/components/sections/PortfolioPreview";
+import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { CtaSection } from "@/components/sections/CtaSection";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Flaugust Business — Solutions Numériques pour l'Afrique" },
+      {
+        name: "description",
+        content:
+          "Développement web, SaaS, agents IA pour gouvernements, ONG, institutions et entreprises. Tchad, Afrique centrale, monde.",
+      },
+      {
+        property: "og:title",
+        content: "Flaugust Business — Solutions Numériques pour l'Afrique",
+      },
+      {
+        property: "og:description",
+        content:
+          "Développement web, SaaS, agents IA pour gouvernements, ONG, institutions et entreprises.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <>
+      <Hero />
+      <StatsSection />
+      <ServicesOverview />
+      <WhyFlaugust />
+      <PortfolioPreview />
+      <TestimonialsSection />
+      <CtaSection />
+    </>
+  );
 }
