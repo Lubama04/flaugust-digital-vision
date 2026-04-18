@@ -87,17 +87,17 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-brand-bg shadow-2xl lg:hidden"
+            className="fixed inset-0 z-50 bg-primary shadow-2xl lg:hidden"
           >
-            <div className="container-page flex h-16 items-center justify-between">
+            <div className="container-page flex h-16 items-center justify-between md:h-[72px]">
               <div className="flex items-center gap-2">
                 <img src={logo} alt="" className="h-8 w-8 object-contain" />
-                <span className="font-display text-lg font-bold text-primary">
+                <span className="font-display text-lg font-bold text-primary-foreground">
                   Flaugust Business
                 </span>
               </div>
               <button onClick={() => setOpen(false)} aria-label="Fermer">
-                <X className="h-6 w-6 text-primary" />
+                <X className="h-6 w-6 text-primary-foreground" />
               </button>
             </div>
             <div className="flex flex-col items-center gap-0 px-6 pt-8">
@@ -105,8 +105,8 @@ export function Navbar() {
                 <Link
                   key={l.to}
                   to={l.to}
-                  className="w-full border-b border-border py-5 text-center text-xl text-foreground"
-                  activeProps={{ className: "text-primary font-semibold" }}
+                  className="w-full border-b border-primary-foreground/20 py-5 text-center text-xl text-primary-foreground/90 hover:text-primary-foreground"
+                  activeProps={{ className: "text-primary-foreground font-semibold" }}
                   activeOptions={{ exact: l.to === "/" }}
                 >
                   {l.label}
@@ -114,7 +114,7 @@ export function Navbar() {
               ))}
               <Link
                 to="/contact"
-                className="mt-8 w-full rounded-lg bg-primary py-4 text-center font-semibold text-primary-foreground"
+                className="mt-8 w-full rounded-lg bg-primary-foreground py-4 text-center font-semibold text-primary"
               >
                 Nous contacter
               </Link>
