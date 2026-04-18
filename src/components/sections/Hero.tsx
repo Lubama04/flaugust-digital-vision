@@ -8,20 +8,11 @@ export function Hero() {
     <section className="relative overflow-hidden bg-background">
       <div className="container-page grid min-h-[calc(100vh-72px)] items-center gap-12 py-12 lg:grid-cols-5 lg:py-0">
         <div className="lg:col-span-3">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-light px-4 py-1.5 text-xs font-medium text-primary"
-          >
-            🌍 Présent dans 6 pays — Tchad · Cameroun · RCA · Côte d'Ivoire · France · Belgique
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="mt-6 font-display text-4xl font-bold text-primary md:text-5xl lg:text-[52px]"
+            className="font-display text-4xl font-bold text-primary md:text-5xl lg:text-[52px]"
           >
             L'intelligence numérique<br />au service de l'Afrique.
           </motion.h1>
@@ -33,7 +24,7 @@ export function Hero() {
             className="mt-6 max-w-xl text-lg text-muted-foreground"
           >
             Développement web & mobile, plateformes SaaS, agents d'IA — des solutions digitales
-            d'excellence pour toutes les institutions, en Afrique francophone et dans le monde.
+            d'excellence pour toutes les institutions, en Afrique et à l'international.
           </motion.p>
 
           <motion.div

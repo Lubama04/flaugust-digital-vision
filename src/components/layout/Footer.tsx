@@ -2,14 +2,18 @@ import { Link } from "@tanstack/react-router";
 import { MessageCircle } from "lucide-react";
 import { company } from "@/data/company";
 import { services } from "@/data/services";
+import logo from "@/assets/logo-flaugust.png";
 
 export function Footer() {
   return (
     <footer className="bg-[oklch(0.18_0.005_50)] text-white">
       <div className="container-page grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="mb-3 font-display text-2xl font-bold text-white">
-            Flaugust Business
+          <div className="mb-3 flex items-center gap-2.5">
+            <img src={logo} alt="" className="h-10 w-10 object-contain" />
+            <div className="font-display text-2xl font-bold text-white">
+              Flaugust Business
+            </div>
           </div>
           <p className="mb-4 text-sm text-white/60">{company.tagline}</p>
           <p className="mb-5 text-xs text-white/40">RCCM {company.rccm}</p>

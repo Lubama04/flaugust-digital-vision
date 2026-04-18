@@ -3,11 +3,11 @@ export const company = {
   fullName: "Établissement Flaugust Business",
   tagline: "L'intelligence numérique au service de l'Afrique.",
   subTagline:
-    "Développement web & mobile, plateformes SaaS, agents IA — des solutions digitales d'excellence pour toutes les institutions d'Afrique francophone et du monde.",
+    "Développement web & mobile, plateformes SaaS, agents IA — des solutions digitales d'excellence pour toutes les institutions, en Afrique et à l'international.",
   founder: "LUBAMA Jean Chrysostome ZACEI",
   founderTitle: "Directeur Général & Fondateur",
   founderBio:
-    "Développeur full-stack et entrepreneur basé au Tchad, LUBAMA Jean Chrysostome ZACEI fonde Flaugust Business avec une vision claire : mettre l'expertise numérique de pointe au service des institutions africaines. Maîtrisant React, TypeScript, Supabase et les agents d'intelligence artificielle, il intervient auprès de gouvernements, d'ONG internationales, d'institutions religieuses et d'entreprises à travers le Tchad, l'Afrique centrale et le monde.",
+    "Développeur full-stack et entrepreneur basé au Tchad, LUBAMA Jean Chrysostome ZACEI fonde Flaugust Business avec une vision claire : mettre l'expertise numérique de pointe au service des institutions africaines. Maîtrisant React, TypeScript, Supabase et les agents d'intelligence artificielle, il intervient auprès de gouvernements, d'ONG internationales, d'institutions religieuses et d'entreprises à travers l'Afrique et à l'international.",
   rccm: "TD-SRH-2024-A-140",
   anie: "N° 0008290 — Réf. 199/ANIE/DG/CGU/2024",
   founded: "2024",
@@ -22,7 +22,7 @@ export const company = {
   linkedin: "https://www.linkedin.com/in/flaugust-luhan",
   mission:
     "Fournir à chaque institution, qu'elle soit publique ou privée, gouvernementale ou associative, un accès à des solutions numériques de classe mondiale, parfaitement adaptées aux réalités africaines.",
-  vision: "Faire de l'Afrique francophone un territoire d'excellence numérique.",
+  vision: "Faire de l'Afrique un territoire d'excellence numérique.",
   values: [
     {
       title: "Excellence technique",

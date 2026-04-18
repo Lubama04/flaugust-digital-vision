@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Développement web, SaaS, agents IA pour gouvernements, ONG, institutions et entreprises. Tchad, Afrique centrale, monde.",
+          "Développement web, SaaS, agents IA pour gouvernements, ONG, institutions et entreprises. Présents en Afrique et à l'international.",
       },
       {
         property: "og:title",
