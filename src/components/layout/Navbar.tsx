@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -81,8 +81,8 @@ export function Navbar() {
       </div>
 
       <AnimatePresence>
-        {open && (
-          <>
+        {open ? (
+          <Fragment>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -99,39 +99,39 @@ export function Navbar() {
               style={{ backgroundColor: "var(--primary)" }}
               className="fixed inset-y-0 right-0 z-[100] flex h-screen w-[78vw] max-w-[320px] flex-col overflow-y-auto shadow-2xl lg:hidden"
             >
-            <div className="container-page flex h-16 items-center justify-between md:h-[72px]">
-              <div className="flex items-center gap-2">
-                <img src={logo} alt="" className="h-8 w-8 object-contain" />
-                <span className="font-display text-lg font-bold text-primary-foreground">
-                  Flaugust Business
-                </span>
+              <div className="flex h-16 items-center justify-between px-5 md:h-[72px]">
+                <div className="flex items-center gap-2">
+                  <img src={logo} alt="" className="h-8 w-8 object-contain" />
+                  <span className="font-display text-lg font-bold text-primary-foreground">
+                    Flaugust Business
+                  </span>
+                </div>
+                <button onClick={() => setOpen(false)} aria-label="Fermer">
+                  <X className="h-6 w-6 text-primary-foreground" />
+                </button>
               </div>
-              <button onClick={() => setOpen(false)} aria-label="Fermer">
-                <X className="h-6 w-6 text-primary-foreground" />
-              </button>
-            </div>
-            <div className="flex flex-col items-center gap-0 px-6 pt-8">
-              {navLinks.map((l) => (
+              <div className="flex flex-col items-center gap-0 px-6 pt-4">
+                {navLinks.map((l) => (
+                  <Link
+                    key={l.to}
+                    to={l.to}
+                    className="w-full border-b border-primary-foreground/20 py-4 text-center text-lg text-primary-foreground/90 hover:text-primary-foreground"
+                    activeProps={{ className: "text-primary-foreground font-semibold" }}
+                    activeOptions={{ exact: l.to === "/" }}
+                  >
+                    {l.label}
+                  </Link>
+                ))}
                 <Link
-                  key={l.to}
-                  to={l.to}
-                  className="w-full border-b border-primary-foreground/20 py-5 text-center text-xl text-primary-foreground/90 hover:text-primary-foreground"
-                  activeProps={{ className: "text-primary-foreground font-semibold" }}
-                  activeOptions={{ exact: l.to === "/" }}
+                  to="/contact"
+                  className="mt-6 w-full rounded-lg bg-primary-foreground py-3 text-center font-semibold text-primary"
                 >
-                  {l.label}
+                  Nous contacter
                 </Link>
-              ))}
-              <Link
-                to="/contact"
-                className="mt-8 w-full rounded-lg bg-primary-foreground py-4 text-center font-semibold text-primary"
-              >
-                Nous contacter
-              </Link>
-            </div>
+              </div>
             </motion.div>
-          </>
-        )}
+          </Fragment>
+        ) : null}
       </AnimatePresence>
     </header>
   );
