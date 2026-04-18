@@ -25,7 +25,8 @@ export const Route = createFileRoute("/admin")({
   component: AdminLayout,
 });
 
-const links = [
+type LinkItem = { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean };
+const links: LinkItem[] = [
   { to: "/admin", label: "Tableau de bord", icon: LayoutDashboard, exact: true },
   { to: "/admin/portfolio", label: "Portfolio", icon: FolderOpen },
   { to: "/admin/services", label: "Services", icon: Wrench },
@@ -33,7 +34,7 @@ const links = [
   { to: "/admin/messages", label: "Messages", icon: Mail },
   { to: "/admin/testimonials", label: "Témoignages", icon: Star },
   { to: "/admin/stats", label: "Statistiques", icon: BarChart3 },
-] as const;
+];
 
 function AdminLayout() {
   const { user, signOut } = useAuth();
