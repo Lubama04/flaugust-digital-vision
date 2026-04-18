@@ -14,7 +14,303 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact_messages: {
+        Row: {
+          budget: string | null
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          message: string
+          organization: string | null
+          phone: string | null
+          replied: boolean
+          status: string
+          subject: string | null
+        }
+        Insert: {
+          budget?: string | null
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id?: string
+          message: string
+          organization?: string | null
+          phone?: string | null
+          replied?: boolean
+          status?: string
+          subject?: string | null
+        }
+        Update: {
+          budget?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          message?: string
+          organization?: string | null
+          phone?: string | null
+          replied?: boolean
+          status?: string
+          subject?: string | null
+        }
+        Relationships: []
+      }
+      portfolio: {
+        Row: {
+          category: string
+          category_color: string | null
+          challenge: string | null
+          client: string | null
+          color: string | null
+          country: string | null
+          created_at: string
+          flag: string | null
+          id: string
+          image_url: string | null
+          published: boolean
+          results: string[] | null
+          services: string[] | null
+          slug: string
+          solution: string | null
+          sort_order: number
+          stack: string[] | null
+          title: string
+          updated_at: string
+          year: string | null
+        }
+        Insert: {
+          category: string
+          category_color?: string | null
+          challenge?: string | null
+          client?: string | null
+          color?: string | null
+          country?: string | null
+          created_at?: string
+          flag?: string | null
+          id?: string
+          image_url?: string | null
+          published?: boolean
+          results?: string[] | null
+          services?: string[] | null
+          slug: string
+          solution?: string | null
+          sort_order?: number
+          stack?: string[] | null
+          title: string
+          updated_at?: string
+          year?: string | null
+        }
+        Update: {
+          category?: string
+          category_color?: string | null
+          challenge?: string | null
+          client?: string | null
+          color?: string | null
+          country?: string | null
+          created_at?: string
+          flag?: string | null
+          id?: string
+          image_url?: string | null
+          published?: boolean
+          results?: string[] | null
+          services?: string[] | null
+          slug?: string
+          solution?: string | null
+          sort_order?: number
+          stack?: string[] | null
+          title?: string
+          updated_at?: string
+          year?: string | null
+        }
+        Relationships: []
+      }
+      posts: {
+        Row: {
+          author: string | null
+          category: string | null
+          content: string | null
+          cover_url: string | null
+          created_at: string
+          excerpt: string | null
+          id: string
+          published: boolean
+          published_at: string | null
+          read_time: number
+          slug: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+          views: number
+        }
+        Insert: {
+          author?: string | null
+          category?: string | null
+          content?: string | null
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          read_time?: number
+          slug: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          views?: number
+        }
+        Update: {
+          author?: string | null
+          category?: string | null
+          content?: string | null
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published?: boolean
+          published_at?: string | null
+          read_time?: number
+          slug?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          views?: number
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          badge: string | null
+          color: string | null
+          created_at: string
+          features: string[] | null
+          full_desc: string | null
+          icon: string
+          id: string
+          published: boolean
+          sectors: string[] | null
+          short_desc: string | null
+          slug: string
+          sort_order: number
+          title: string
+        }
+        Insert: {
+          badge?: string | null
+          color?: string | null
+          created_at?: string
+          features?: string[] | null
+          full_desc?: string | null
+          icon: string
+          id?: string
+          published?: boolean
+          sectors?: string[] | null
+          short_desc?: string | null
+          slug: string
+          sort_order?: number
+          title: string
+        }
+        Update: {
+          badge?: string | null
+          color?: string | null
+          created_at?: string
+          features?: string[] | null
+          full_desc?: string | null
+          icon?: string
+          id?: string
+          published?: boolean
+          sectors?: string[] | null
+          short_desc?: string | null
+          slug?: string
+          sort_order?: number
+          title?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: string | null
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: string | null
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: string | null
+        }
+        Relationships: []
+      }
+      stats: {
+        Row: {
+          id: string
+          label: string
+          sort_order: number
+          suffix: string | null
+          value: number
+        }
+        Insert: {
+          id?: string
+          label: string
+          sort_order?: number
+          suffix?: string | null
+          value: number
+        }
+        Update: {
+          id?: string
+          label?: string
+          sort_order?: number
+          suffix?: string | null
+          value?: number
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          avatar: string | null
+          color: string | null
+          country: string | null
+          created_at: string
+          id: string
+          name: string
+          org: string | null
+          published: boolean
+          rating: number
+          sort_order: number
+          text: string
+        }
+        Insert: {
+          avatar?: string | null
+          color?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          org?: string | null
+          published?: boolean
+          rating?: number
+          sort_order?: number
+          text: string
+        }
+        Update: {
+          avatar?: string | null
+          color?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          org?: string | null
+          published?: boolean
+          rating?: number
+          sort_order?: number
+          text?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
