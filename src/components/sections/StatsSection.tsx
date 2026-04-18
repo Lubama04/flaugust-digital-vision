@@ -1,6 +1,6 @@
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { stats } from "@/data/stats";
+import { useStats } from "@/hooks/useStatsData";
 import { useCounter } from "@/hooks/useCounter";
 
 function StatItem({ value, suffix, label }: { value: number; suffix: string; label: string }) {
@@ -20,6 +20,7 @@ function StatItem({ value, suffix, label }: { value: number; suffix: string; lab
 }
 
 export function StatsSection() {
+  const { data: stats = [] } = useStats();
   return (
     <section className="bg-primary py-16">
       <div className="container-page grid grid-cols-2 gap-8 md:grid-cols-4 md:divide-x md:divide-white/20">
