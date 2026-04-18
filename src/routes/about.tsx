@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import { company } from "@/data/company";
 import { FadeInSection } from "@/components/FadeInSection";
+import founderPhoto from "@/assets/founder-lubama.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -88,8 +89,13 @@ function AboutPage() {
       <section className="bg-card py-16">
         <FadeInSection className="container-page grid gap-10 lg:grid-cols-3">
           <div>
-            <div className="grid aspect-square place-items-center rounded-2xl bg-primary-light">
-              <span className="font-display text-7xl font-bold text-primary">LJ</span>
+            <div className="overflow-hidden rounded-2xl bg-primary-light shadow-lg">
+              <img
+                src={founderPhoto}
+                alt="LUBAMA Jean Chrysostome ZACEI, fondateur de Flaugust Business"
+                className="aspect-square w-full object-cover"
+                loading="lazy"
+              />
             </div>
           </div>
           <div className="lg:col-span-2">
@@ -183,22 +189,21 @@ function AboutPage() {
           <h2 className="font-display text-2xl font-bold text-foreground md:text-3xl">
             Zone d'intervention
           </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            Présents en Afrique centrale et au-delà, nous intervenons partout sur le continent
+            africain et à l'international.
+          </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             {[
-              "🇹🇩 Tchad (Siège)",
-              "🇨🇲 Cameroun",
-              "🇨🇫 République Centrafricaine",
-              "🇨🇮 Côte d'Ivoire",
-              "🇫🇷 France",
-              "🇧🇪 Belgique",
-              "🇪🇸 Espagne",
-              "🌍 International",
+              { icon: "🌍", label: "Afrique — Siège au Tchad, interventions continent entier" },
+              { icon: "🌐", label: "International — Europe, Amériques et monde entier" },
             ].map((c) => (
               <span
-                key={c}
-                className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground/80"
+                key={c.label}
+                className="rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground/80"
               >
-                {c}
+                <span className="mr-2 text-lg">{c.icon}</span>
+                {c.label}
               </span>
             ))}
           </div>

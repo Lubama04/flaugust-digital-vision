@@ -13,6 +13,7 @@ export type PortfolioItem = {
   solution: string;
   results: string[];
   color: string;
+  imageUrl?: string | null;
 };
 
 export const portfolioItems: PortfolioItem[] = [
@@ -25,19 +26,25 @@ export const portfolioItems: PortfolioItem[] = [
     country: "République Centrafricaine",
     flag: "🇨🇫",
     year: "2024",
-    services: ["Site web institutionnel", "Agent IA de financement", "Dashboard admin"],
-    stack: ["React", "TypeScript", "Supabase", "Twin.so"],
+    services: [
+      "Agent IA de financement",
+      "Veille multi-sources",
+      "Site web institutionnel (en cours)",
+    ],
+    stack: ["Twin.so", "React", "TypeScript", "Supabase"],
     challenge:
-      "L'ONG PRODIGES avait besoin d'une présence numérique professionnelle et d'un outil automatisé pour identifier les opportunités de financement parmi plus de 60 sources internationales.",
+      "L'ONG PRODIGES avait besoin d'un outil automatisé pour identifier les opportunités de financement parmi plus de 60 sources internationales, et d'une présence numérique professionnelle pour renforcer sa crédibilité.",
     solution:
-      "Nous avons livré un site web institutionnel complet pour présenter les programmes de l'ONG, couplé à PRODIGES INTEL : un agent IA qui scanne les bases de données de financement en 8 langues, génère des propositions prêtes à soumettre et envoie des rapports hebdomadaires.",
+      "Nous avons déployé PRODIGES INTEL, un agent IA autonome et pleinement opérationnel qui scanne les bases de données de financement en 8 langues, génère des propositions de financement prêtes à soumettre et envoie des rapports hebdomadaires directement par email. Le site web institutionnel de l'ONG est actuellement en cours de développement.",
     results: [
-      "Site web opérationnel en moins de 3 semaines",
-      "Agent IA scannant 60+ sources de financement",
-      "Rapports automatiques livrés par email",
-      "Coût mensuel : 20 000 FCFA",
+      "Agent IA PRODIGES INTEL opérationnel et fonctionnel",
+      "60+ sources de financement scannées automatiquement",
+      "Rapports de veille livrés chaque semaine par email",
+      "Propositions de financement générées automatiquement",
+      "Site institutionnel en cours de développement",
     ],
     color: "#1A6B35",
+    imageUrl: null,
   },
   {
     id: "vitalya",
@@ -61,6 +68,7 @@ export const portfolioItems: PortfolioItem[] = [
       "Livraison en France, Belgique, Suisse, Canada",
     ],
     color: "#7B3415",
+    imageUrl: null,
   },
   {
     id: "flaugust-intel",
@@ -84,6 +92,7 @@ export const portfolioItems: PortfolioItem[] = [
       "Rapports bihebdomadaires par email",
     ],
     color: "#B83080",
+    imageUrl: null,
   },
   {
     id: "magazia",
@@ -107,52 +116,36 @@ export const portfolioItems: PortfolioItem[] = [
       "Paiement mobile money intégré (CinetPay)",
     ],
     color: "#E88930",
+    imageUrl: null,
   },
   {
-    id: "diocese-nkongsamba",
-    title: "Diocèse de Nkongsamba",
-    category: "Institution Religieuse",
-    categoryColor: "#7B3415",
-    client: "Diocèse de Nkongsamba",
-    country: "Cameroun",
-    flag: "🇨🇲",
-    year: "2025–2026",
-    services: ["Refonte site web", "Devis et négociation", "Déploiement"],
-    stack: ["React", "TypeScript", "Supabase", "Lovable.dev"],
-    challenge:
-      "Le Diocèse de Nkongsamba avait besoin d'une refonte complète de son site institutionnel pour mieux refléter ses activités pastorales, éducatives et sociales.",
-    solution:
-      "Proposition d'une refonte complète avec nouvelle charte graphique, architecture de contenu repensée et tableau de bord admin pour que l'équipe diocésaine puisse gérer le contenu de façon autonome.",
-    results: [
-      "Devis institutionnel soumis et en cours de validation",
-      "Architecture multi-sections : pastorale, éducation, social, actualités",
-      "Interface admin sans compétence technique requise",
-      "Livraison prévue Q2 2026",
-    ],
-    color: "#7B3415",
-  },
-  {
-    id: "plagiacscan",
-    title: "PlagiaScan Pro",
-    category: "SaaS",
+    id: "certipro",
+    title: "CertiPro — Certificats en ligne",
+    category: "Application Web",
     categoryColor: "#1A6B35",
-    client: "Flaugust Business (produit SaaS)",
-    country: "Afrique francophone & France",
+    client: "Flaugust Business (produit propre)",
+    country: "Afrique francophone",
     flag: "📄",
     year: "2025",
-    services: ["SaaS anti-plagiat", "API de vérification", "Tableau de bord"],
-    stack: ["Next.js", "TypeScript", "Supabase", "API Stripe"],
+    services: [
+      "Application web",
+      "Génération de certificats PDF",
+      "Interface admin",
+    ],
+    stack: ["React", "TypeScript", "Supabase", "Lovable.dev"],
     challenge:
-      "Les institutions académiques africaines manquent d'outils anti-plagiat abordables et adaptés au contexte francophone pour garantir l'intégrité des travaux soumis.",
+      "Les institutions — écoles, associations, entreprises, organisateurs d'événements — passent un temps considérable à créer et envoyer manuellement des certificats de participation, de formation ou de reconnaissance. Aucun outil abordable n'existait en français pour ce besoin.",
     solution:
-      "Développement de PlagiaScan Pro, une plateforme SaaS d'anti-plagiat en français, avec architecture Next.js complète, interface de soumission de documents, score de similarité, rapport détaillé et paiement intégré.",
+      "CertiPro est une application web opérationnelle qui permet à toute institution de créer, personnaliser et générer des certificats professionnels en quelques minutes. Modèles prédéfinis, logo de l'organisation intégré, signature numérique et export PDF haute qualité immédiat — sans aucune compétence technique requise.",
     results: [
-      "Architecture Next.js + Supabase complète",
-      "Score de similarité et rapport détaillé",
-      "API disponible pour intégration institutionnelle",
-      "Déploiement en cours — UI finale en finalisation",
+      "Application web opérationnelle et fonctionnelle",
+      "Génération de certificats en moins de 2 minutes",
+      "Export PDF haute qualité, prêt à imprimer ou partager",
+      "Interface admin intuitive, zéro formation nécessaire",
+      "Accessible depuis n'importe quel navigateur",
     ],
     color: "#1A6B35",
+    imageUrl: null,
   },
 ];
 
@@ -162,5 +155,5 @@ export const portfolioCategories = [
   "Agent IA",
   "SaaS",
   "Édition Numérique",
-  "Institution Religieuse",
+  "Application Web",
 ] as const;
