@@ -80,7 +80,7 @@ function AdminLayout() {
             return (
               <Link
                 key={l.to}
-                to={l.to}
+                to={l.to as string}
                 className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors ${
                   active
                     ? "border-l-[3px] border-primary bg-primary/30 font-semibold text-white"
