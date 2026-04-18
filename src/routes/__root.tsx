@@ -40,7 +40,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Flaugust Business — Solutions Numériques pour l'Afrique" },
+      { title: "Flaugust Business — Solutions numériques pour l'Afrique" },
       {
         name: "description",
         content:
@@ -49,6 +49,19 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { name: "author", content: "Flaugust Business" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Flaugust Business — Solutions numériques pour l'Afrique" },
+      { name: "twitter:title", content: "Flaugust Business — Solutions numériques pour l'Afrique" },
+      { name: "description", content: "Portail officiel de Flaugust Business — l'entreprise 
+tchadienne qui place l'excellence numérique au service 
+de toutes les institutions." },
+      { property: "og:description", content: "Portail officiel de Flaugust Business — l'entreprise 
+tchadienne qui place l'excellence numérique au service 
+de toutes les institutions." },
+      { name: "twitter:description", content: "Portail officiel de Flaugust Business — l'entreprise 
+tchadienne qui place l'excellence numérique au service 
+de toutes les institutions." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
