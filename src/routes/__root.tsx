@@ -70,6 +70,20 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { name: "twitter:title", content: SEO_TITLE },
       { name: "twitter:description", content: SEO_SHORT_DESC },
       { name: "twitter:image", content: SEO_IMAGE },
+      { title: "Flaugust Business — Solutions numériques pour l'Afrique" },
+      { property: "og:title", content: "Flaugust Business — Solutions numériques pour l'Afrique" },
+      { name: "twitter:title", content: "Flaugust Business — Solutions numériques pour l'Afrique" },
+      { name: "description", content: "Portail officiel de Flaugust Business — l'entreprise 
+tchadienne qui place l'excellence numérique au service 
+de toutes les institutions." },
+      { property: "og:description", content: "Portail officiel de Flaugust Business — l'entreprise 
+tchadienne qui place l'excellence numérique au service 
+de toutes les institutions." },
+      { name: "twitter:description", content: "Portail officiel de Flaugust Business — l'entreprise 
+tchadienne qui place l'excellence numérique au service 
+de toutes les institutions." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
