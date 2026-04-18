@@ -83,9 +83,12 @@ function ContactPage() {
   const onSubmit = async (data: FormValues) => {
     setSubmitting(true);
     try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined;
+      const serviceId =
+        (import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined) ?? "service_ac4vmp";
+      const templateId =
+        (import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined) ?? "template_x18q9hh";
+      const publicKey =
+        (import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined) ?? "wJZj1Vx_IAsHbX5Cm";
 
       if (!serviceId || !templateId || !publicKey) {
         toast.error("Configuration email manquante.", {
