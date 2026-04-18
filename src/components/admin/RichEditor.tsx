@@ -57,9 +57,18 @@ export function RichEditor({ content, onChange }: Props) {
         <Btn title="Citation" active={editor.isActive("blockquote")} onClick={() => editor.chain().focus().toggleBlockquote().run()}><Quote className="h-4 w-4" /></Btn>
         <Btn title="Code" active={editor.isActive("codeBlock")} onClick={() => editor.chain().focus().toggleCodeBlock().run()}><Code className="h-4 w-4" /></Btn>
         <Btn title="Lien" active={editor.isActive("link")} onClick={() => {
-          const url = prompt("URL du lien :");
-          if (url) editor.chain().focus().setLink({ href: url }).run();
-          else editor.chain().focus().unsetLink().run();
+          const url = prompt("URL du lien (https:// ou mailto:) :");
+          if (!url) {
+            editor.chain().focus().unsetLink().run();
+            return;
+          }
+          const trimmed = url.trim();
+          // Only allow safe protocols — block javascript:, data:, vbscript:, etc.
+          if (!/^(https?:\/\/|mailto:|\/)/i.test(trimmed)) {
+            alert("URL invalide. Utilisez https://, mailto: ou un chemin relatif.");
+            return;
+          }
+          editor.chain().focus().setLink({ href: trimmed }).run();
         }}><LinkIcon className="h-4 w-4" /></Btn>
       </div>
       <EditorContent editor={editor} />

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import DOMPurify from "dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import { ChevronLeft, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/dateUtils";
@@ -28,13 +28,16 @@ export const Route = createFileRoute("/blog/$slug")({
       ],
     };
   },
-  errorComponent: ({ error }) => (
-    <div className="container-page py-20 text-center">
-      <h1 className="font-display text-3xl text-primary">Article introuvable</h1>
-      <p className="mt-2 text-muted-foreground">{error.message}</p>
-      <Link to="/blog" className="mt-6 inline-block rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground">← Retour au blog</Link>
-    </div>
-  ),
+  errorComponent: ({ error }) => {
+    if (import.meta.env.DEV) console.error("Blog post error:", error);
+    return (
+      <div className="container-page py-20 text-center">
+        <h1 className="font-display text-3xl text-primary">Article introuvable</h1>
+        <p className="mt-2 text-muted-foreground">Une erreur est survenue. Veuillez réessayer plus tard.</p>
+        <Link to="/blog" className="mt-6 inline-block rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground">← Retour au blog</Link>
+      </div>
+    );
+  },
   notFoundComponent: () => (
     <div className="container-page py-20 text-center">
       <h1 className="font-display text-3xl text-primary">Article introuvable</h1>
@@ -46,7 +49,7 @@ export const Route = createFileRoute("/blog/$slug")({
 
 function BlogPostPage() {
   const { post } = Route.useLoaderData();
-  const cleanHtml = typeof window !== "undefined" ? DOMPurify.sanitize(post.content ?? "") : (post.content ?? "");
+  const cleanHtml = DOMPurify.sanitize(post.content ?? "", { USE_PROFILES: { html: true } });
 
   return (
     <article className="bg-background pb-20">
