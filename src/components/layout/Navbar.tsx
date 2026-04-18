@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/assets/logo-flaugust.png";
 
 const navLinks = [
   { to: "/", label: "Accueil" },
@@ -35,9 +36,11 @@ export function Navbar() {
     >
       <div className="container-page flex h-16 items-center justify-between md:h-[72px]">
         <Link to="/" className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary font-display text-lg font-bold text-primary-foreground">
-            FB
-          </span>
+          <img
+            src={logo}
+            alt="Logo Flaugust Business"
+            className="h-10 w-10 object-contain md:h-11 md:w-11"
+          />
           <span className="font-display text-lg font-bold text-primary">
             Flaugust Business
           </span>
@@ -86,9 +89,12 @@ export function Navbar() {
             className="fixed inset-0 z-50 bg-background lg:hidden"
           >
             <div className="container-page flex h-16 items-center justify-between">
-              <span className="font-display text-lg font-bold text-primary">
-                Flaugust Business
-              </span>
+              <div className="flex items-center gap-2">
+                <img src={logo} alt="" className="h-8 w-8 object-contain" />
+                <span className="font-display text-lg font-bold text-primary">
+                  Flaugust Business
+                </span>
+              </div>
               <button onClick={() => setOpen(false)} aria-label="Fermer">
                 <X className="h-6 w-6 text-primary" />
               </button>
