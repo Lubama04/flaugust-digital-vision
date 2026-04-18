@@ -1,11 +1,17 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRouteWithContext, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { Toaster } from "@/components/ui/sonner";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 import appCss from "../styles.css?url";
+
+interface RouterContext {
+  queryClient: QueryClient;
+}
 
 function NotFoundComponent() {
   return (
@@ -29,7 +35,7 @@ function NotFoundComponent() {
   );
 }
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -74,16 +80,31 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
+
   return (
-    <>
-      <Navbar />
-      <main className="pt-16 md:pt-[72px]">
-        <Outlet />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-      <ScrollToTop />
-      <Toaster richColors position="top-right" />
-    </>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        {isAdmin ? (
+          <>
+            <Outlet />
+            <Toaster richColors position="top-right" />
+          </>
+        ) : (
+          <>
+            <Navbar />
+            <main className="pt-16 md:pt-[72px]">
+              <Outlet />
+            </main>
+            <Footer />
+            <WhatsAppButton />
+            <ScrollToTop />
+            <Toaster richColors position="top-right" />
+          </>
+        )}
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
