@@ -40,18 +40,26 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Flaugust Business \u2014 Solutions num\u00E9riques pour l\u2019Afrique" },
+      { title: "Flaugust Business — Solutions numériques pour l'Afrique" },
       {
         name: "description",
-        content: "Portail officiel de Flaugust Business \u2014 l\u2019entreprise tchadienne qui place l\u2019excellence num\u00E9rique au service de toutes les institutions. Votre partenaire de confiance en Afrique et dans le monde.",
+        content:
+          "Flaugust Business : développement web & mobile, plateformes SaaS, agents IA et conseil en transformation digitale pour les institutions d'Afrique francophone. RCCM TD-SRH-2024-A-140.",
       },
       { name: "author", content: "Flaugust Business" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:title", content: "Flaugust Business \u2014 Solutions num\u00E9riques pour l\u2019Afrique" },
-      { name: "twitter:title", content: "Flaugust Business \u2014 Solutions Num\u00E9riques, Formation & Commerce" },
-      { property: "og:description", content: "Portail officiel de Flaugust Business \u2014 l\u2019entreprise tchadienne qui place l\u2019excellence num\u00E9rique au service de toutes les institutions. Votre partenaire de confiance en Afrique et dans le monde." },
-      { name: "twitter:description", content: "Portail officiel de Flaugust Business \u2014 l\u2019entreprise tchadienne qui place l\u2019excellence num\u00E9rique au service de toutes les institutions. Votre partenaire de confiance en Afrique et dans le monde." },
+      { property: "og:title", content: "Flaugust Business — Solutions numériques pour l'Afrique" },
+      { name: "twitter:title", content: "Flaugust Business — Solutions numériques pour l'Afrique" },
+      { name: "description", content: "Portail officiel de Flaugust Business — l'entreprise 
+tchadienne qui place l'excellence numérique au service 
+de toutes les institutions." },
+      { property: "og:description", content: "Portail officiel de Flaugust Business — l'entreprise 
+tchadienne qui place l'excellence numérique au service 
+de toutes les institutions." },
+      { name: "twitter:description", content: "Portail officiel de Flaugust Business — l'entreprise 
+tchadienne qui place l'excellence numérique au service 
+de toutes les institutions." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
     ],
