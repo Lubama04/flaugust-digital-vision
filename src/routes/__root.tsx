@@ -76,8 +76,8 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { name: "description", content: "Portail officiel de Flaugust Business, entreprise tchadienne engagée pour une excellence numérique au service de toutes les institutions." },
       { property: "og:description", content: "Portail officiel de Flaugust Business, entreprise tchadienne engagée pour une excellence numérique au service de toutes les institutions." },
       { name: "twitter:description", content: "Portail officiel de Flaugust Business, entreprise tchadienne engagée pour une excellence numérique au service de toutes les institutions." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/RXeaIRXRXygMsVCHE756ePns84E3/social-images/social-1776598168591-ChatGPT_Image_19_avr._2026,_12_29_07.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/RXeaIRXRXygMsVCHE756ePns84E3/social-images/social-1776598168591-ChatGPT_Image_19_avr._2026,_12_29_07.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
