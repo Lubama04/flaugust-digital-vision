@@ -3,12 +3,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
 import { Mail, Phone, MessageCircle, MapPin, Loader2 } from "lucide-react";
 import { company } from "@/data/company";
 import { FadeInSection } from "@/components/FadeInSection";
-import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -83,46 +81,51 @@ function ContactPage() {
   const onSubmit = async (data: FormValues) => {
     setSubmitting(true);
     try {
-      const serviceId =
-        (import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined) ?? "service_ac4vmp";
-      const templateId =
-        (import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined) ?? "template_x18q9hh";
-      const publicKey =
-        (import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined) ?? "wJZj1Vx_IAsHbX5Cm";
+      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
 
-      if (!serviceId || !templateId || !publicKey) {
-        toast.error("Configuration email manquante.", {
-          description:
-            "Veuillez nous contacter directement par WhatsApp ou téléphone en attendant.",
+      if (!accessKey) {
+        toast.error("Configuration manquante.", {
+          description: "Veuillez nous contacter directement par WhatsApp en attendant.",
         });
         return;
       }
 
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: data.name,
-          from_email: data.email,
-          organization: data.organization ?? "—",
-          subject: data.subject,
-          budget: data.budget,
-          message: data.message,
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
-        { publicKey },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `Nouveau contact depuis le site — ${data.name}`,
+          from_name: "Flaugust Business Website",
+          reply_to: data.email,
+          "Nom complet": data.name,
+          Email: data.email,
+          Organisation: data.organization || "Non précisée",
+          "Objet du projet": data.subject,
+          "Budget estimatif": data.budget,
+          Message: data.message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success("Message envoyé ! Nous vous répondrons dans les 24h.");
+        reset();
+      } else {
+        console.error("Web3Forms error:", result);
+        toast.error(
+          "Une erreur est survenue. Veuillez réessayer ou nous contacter par WhatsApp.",
+        );
+      }
+    } catch (error) {
+      console.error("Web3Forms error:", error);
+      toast.error(
+        "Une erreur est survenue. Veuillez réessayer ou nous contacter par WhatsApp.",
       );
-      toast.success("Message envoyé !", {
-        description: "Nous vous répondrons dans les 24 heures.",
-      });
-      reset();
-    } catch (err) {
-      console.error("EmailJS error:", err);
-      const message =
-        (err as { text?: string; message?: string })?.text ??
-        (err instanceof Error ? err.message : String(err));
-      toast.error("Une erreur est survenue.", {
-        description: message || "Veuillez réessayer ou nous contacter par WhatsApp.",
-      });
     } finally {
       setSubmitting(false);
     }
