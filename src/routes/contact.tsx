@@ -115,9 +115,13 @@ function ContactPage() {
         description: "Nous vous répondrons dans les 24 heures.",
       });
       reset();
-    } catch {
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      const message =
+        (err as { text?: string; message?: string })?.text ??
+        (err instanceof Error ? err.message : String(err));
       toast.error("Une erreur est survenue.", {
-        description: "Veuillez réessayer ou nous contacter directement par WhatsApp.",
+        description: message || "Veuillez réessayer ou nous contacter par WhatsApp.",
       });
     } finally {
       setSubmitting(false);
