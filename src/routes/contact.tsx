@@ -81,14 +81,9 @@ function ContactPage() {
   const onSubmit = async (data: FormValues) => {
     setSubmitting(true);
     try {
-      const accessKey = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
-
-      if (!accessKey) {
-        toast.error("Configuration manquante.", {
-          description: "Veuillez nous contacter directement par WhatsApp en attendant.",
-        });
-        return;
-      }
+      const accessKey =
+        (import.meta.env.VITE_WEB3FORMS_KEY as string | undefined) ??
+        "f2566413-9d14-40fa-84fb-7db13c0814e0";
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
