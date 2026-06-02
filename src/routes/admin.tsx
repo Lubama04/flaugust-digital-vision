@@ -16,6 +16,12 @@ import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/logo-flaugust.png";
 
 export const Route = createFileRoute("/admin")({
+  head: () => ({
+    meta: [
+      { title: "Admin — Flaugust Business" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
   beforeLoad: async ({ location }) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
