@@ -14,6 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
+      actualites: {
+        Row: {
+          category: string | null
+          content: string | null
+          created_at: string
+          custom_category: string | null
+          excerpt: string | null
+          id: string
+          images_urls: string[] | null
+          published: boolean
+          published_at: string | null
+          title: string
+        }
+        Insert: {
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          custom_category?: string | null
+          excerpt?: string | null
+          id?: string
+          images_urls?: string[] | null
+          published?: boolean
+          published_at?: string | null
+          title: string
+        }
+        Update: {
+          category?: string | null
+          content?: string | null
+          created_at?: string
+          custom_category?: string | null
+          excerpt?: string | null
+          id?: string
+          images_urls?: string[] | null
+          published?: boolean
+          published_at?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
+      ai_documents: {
+        Row: {
+          created_at: string
+          extracted_text: string | null
+          file_type: string | null
+          file_url: string
+          filename: string
+          generated_content: string | null
+          generated_title: string | null
+          id: string
+          status: string | null
+          target_type: string | null
+        }
+        Insert: {
+          created_at?: string
+          extracted_text?: string | null
+          file_type?: string | null
+          file_url: string
+          filename: string
+          generated_content?: string | null
+          generated_title?: string | null
+          id?: string
+          status?: string | null
+          target_type?: string | null
+        }
+        Update: {
+          created_at?: string
+          extracted_text?: string | null
+          file_type?: string | null
+          file_url?: string
+          filename?: string
+          generated_content?: string | null
+          generated_title?: string | null
+          id?: string
+          status?: string | null
+          target_type?: string | null
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           budget: string | null
@@ -56,6 +134,30 @@ export type Database = {
         }
         Relationships: []
       }
+      page_views: {
+        Row: {
+          created_at: string
+          device: string | null
+          id: string
+          page: string
+          referrer: string | null
+        }
+        Insert: {
+          created_at?: string
+          device?: string | null
+          id?: string
+          page: string
+          referrer?: string | null
+        }
+        Update: {
+          created_at?: string
+          device?: string | null
+          id?: string
+          page?: string
+          referrer?: string | null
+        }
+        Relationships: []
+      }
       portfolio: {
         Row: {
           category: string
@@ -68,6 +170,7 @@ export type Database = {
           flag: string | null
           id: string
           image_url: string | null
+          images_urls: string[] | null
           published: boolean
           results: string[] | null
           services: string[] | null
@@ -90,6 +193,7 @@ export type Database = {
           flag?: string | null
           id?: string
           image_url?: string | null
+          images_urls?: string[] | null
           published?: boolean
           results?: string[] | null
           services?: string[] | null
@@ -112,6 +216,7 @@ export type Database = {
           flag?: string | null
           id?: string
           image_url?: string | null
+          images_urls?: string[] | null
           published?: boolean
           results?: string[] | null
           services?: string[] | null
@@ -140,6 +245,7 @@ export type Database = {
           slug: string
           tags: string[] | null
           title: string
+          type: string | null
           updated_at: string
           views: number
         }
@@ -157,6 +263,7 @@ export type Database = {
           slug: string
           tags?: string[] | null
           title: string
+          type?: string | null
           updated_at?: string
           views?: number
         }
@@ -174,6 +281,7 @@ export type Database = {
           slug?: string
           tags?: string[] | null
           title?: string
+          type?: string | null
           updated_at?: string
           views?: number
         }
