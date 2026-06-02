@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { uploadImage } from "@/lib/uploadImage";
 import { ACTUALITE_CATEGORIES, categoryMeta, type ActualiteCategoryKey } from "@/lib/actualiteCategories";
 import { formatDate } from "@/lib/dateUtils";
+import { AIDocumentProcessor } from "@/components/admin/AIDocumentProcessor";
 
 export const Route = createFileRoute("/admin/actualites")({
   component: ActualitesManager,
@@ -310,6 +311,15 @@ function ActualiteForm({
         </div>
 
         <div className="flex-1 space-y-5 px-6 py-5">
+          <AIDocumentProcessor
+            targetType="actualite"
+            onApply={(d) => {
+              if (d.title) setTitle(d.title);
+              if (d.excerpt) setExcerpt(d.excerpt);
+              if (d.content) setContent(d.content);
+            }}
+          />
+
           <Field label="Titre *">
             <input
               type="text"

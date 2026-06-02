@@ -7,6 +7,7 @@ import { uploadImage } from "@/lib/uploadImage";
 import { slugify } from "@/lib/slug";
 import { RichEditor } from "./RichEditor";
 import { TagInput } from "./PortfolioForm";
+import { AIDocumentProcessor } from "./AIDocumentProcessor";
 
 const CATEGORIES = ["Technologie", "IA", "Marketing Digital", "Afrique Numérique", "Formation", "Actualités", "Étude de cas"];
 
@@ -190,6 +191,18 @@ export function PostEditor({ postId }: { postId: string | null }) {
         </div>
 
         <aside className="space-y-4 lg:col-span-4">
+          <AIDocumentProcessor
+            targetType="blog"
+            onApply={(d) =>
+              setForm((f) => ({
+                ...f,
+                title: d.title || f.title,
+                slug: f.slug || slugify(d.title || f.title),
+                excerpt: d.excerpt || f.excerpt,
+                content: d.content || f.content,
+              }))
+            }
+          />
           <div className="rounded-2xl border border-border bg-card p-4">
             <label className="flex items-center justify-between">
               <span className="text-sm font-semibold">Statut</span>
