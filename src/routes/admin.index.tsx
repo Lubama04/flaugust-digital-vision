@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { FolderOpen, Mail, FileText, Grid } from "lucide-react";
+import { FolderOpen, Mail, FileText, Grid, Sparkles, Loader2, RefreshCw } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDistanceToNow } from "@/lib/dateUtils";
+import { dailyBriefing } from "@/lib/ai.functions";
 
 export const Route = createFileRoute("/admin/")({
   component: DashboardHome,
@@ -16,14 +18,20 @@ function DashboardHome() {
   const [counts, setCounts] = useState<Counts>({ portfolio: 0, unread: 0, posts: 0, services: 0 });
   const [recentMessages, setRecentMessages] = useState<RecentMsg[]>([]);
   const [recentPosts, setRecentPosts] = useState<RecentPost[]>([]);
+  const [actualitesCount, setActualitesCount] = useState(0);
+  const [briefing, setBriefing] = useState<string | null>(null);
+  const [briefingLoading, setBriefingLoading] = useState(false);
+  const [briefingError, setBriefingError] = useState<string | null>(null);
+  const callBriefing = useServerFn(dailyBriefing);
 
   useEffect(() => {
     (async () => {
-      const [p, m, b, s, rm, rp] = await Promise.all([
+      const [p, m, b, s, a, rm, rp] = await Promise.all([
         supabase.from("portfolio").select("*", { count: "exact", head: true }).eq("published", true),
         supabase.from("contact_messages").select("*", { count: "exact", head: true }).eq("status", "unread"),
         supabase.from("posts").select("*", { count: "exact", head: true }).eq("published", true),
         supabase.from("services").select("*", { count: "exact", head: true }).eq("published", true),
+        supabase.from("actualites").select("*", { count: "exact", head: true }).eq("published", true),
         supabase.from("contact_messages").select("id,full_name,subject,status,created_at").order("created_at", { ascending: false }).limit(5),
         supabase.from("posts").select("id,title,published,updated_at").order("updated_at", { ascending: false }).limit(5),
       ]);
@@ -33,13 +41,61 @@ function DashboardHome() {
         posts: b.count ?? 0,
         services: s.count ?? 0,
       });
+      setActualitesCount(a.count ?? 0);
       setRecentMessages(rm.data ?? []);
       setRecentPosts(rp.data ?? []);
     })();
   }, []);
 
+  const loadBriefing = async () => {
+    setBriefingLoading(true);
+    setBriefingError(null);
+    try {
+      const res = await callBriefing({
+        data: {
+          unreadMessages: counts.unread,
+          publishedPosts: counts.posts,
+          publishedProjects: counts.portfolio,
+          publishedActualites: actualitesCount,
+          recentTitles: recentPosts.map((p) => p.title).slice(0, 5),
+        },
+      });
+      if (res.success) setBriefing(res.summary);
+      else setBriefingError(res.error);
+    } catch (e) {
+      setBriefingError(e instanceof Error ? e.message : "Erreur");
+    } finally {
+      setBriefingLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
+      <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-secondary/5 p-6">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <h2 className="inline-flex items-center gap-2 text-base font-bold text-foreground">
+            <Sparkles className="h-5 w-5 text-primary" /> Résumé IA du jour
+          </h2>
+          <button
+            onClick={loadBriefing}
+            disabled={briefingLoading}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background px-3 py-1.5 text-xs font-semibold text-foreground hover:bg-muted disabled:opacity-60"
+          >
+            {briefingLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="h-3.5 w-3.5" />}
+            {briefing ? "Régénérer" : "Générer"}
+          </button>
+        </div>
+        {briefing ? (
+          <p className="text-sm leading-relaxed text-foreground">{briefing}</p>
+        ) : briefingError ? (
+          <p className="text-sm text-red-500">{briefingError}</p>
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            Cliquez sur « Générer » pour obtenir un résumé exécutif de votre activité du jour.
+          </p>
+        )}
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <KPI title="Projets publiés" value={counts.portfolio} icon={<FolderOpen className="h-5 w-5" />} color="#7B3415" link="/admin/portfolio" linkLabel="Voir le portfolio" />
         <KPI title="Messages non lus" value={counts.unread} icon={<Mail className="h-5 w-5" />} color="#E88930" link="/admin/messages" linkLabel="Voir les messages" pulse={counts.unread > 0} />

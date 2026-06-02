@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { uploadImage } from "@/lib/uploadImage";
 import { slugify } from "@/lib/slug";
+import { AIDocumentProcessor } from "./AIDocumentProcessor";
 
 type Props = {
   id: string | null;
@@ -135,6 +136,18 @@ export function PortfolioForm({ id, onClose, onSaved }: Props) {
           </div>
         ) : (
           <form onSubmit={submit} className="flex-1 space-y-4 overflow-y-auto p-6">
+            <AIDocumentProcessor
+              targetType="portfolio"
+              onApply={(d) =>
+                setForm((f) => ({
+                  ...f,
+                  title: d.title || f.title,
+                  slug: f.slug || slugify(d.title || f.title),
+                  challenge: d.excerpt || f.challenge,
+                  solution: d.content || f.solution,
+                }))
+              }
+            />
             <Field label="Titre *">
               <input
                 value={form.title}
