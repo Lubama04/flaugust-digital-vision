@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { Mail, Phone, MessageCircle, MapPin, Loader2 } from "lucide-react";
 import { company } from "@/data/company";
 import { FadeInSection } from "@/components/FadeInSection";
+import { useServerFn } from "@tanstack/react-start";
+import { submitContact } from "@/lib/contact.functions";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -73,6 +75,7 @@ const budgets = [
 
 function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
+  const submitContactFn = useServerFn(submitContact);
   const {
     register,
     handleSubmit,
@@ -83,43 +86,17 @@ function ContactPage() {
   const onSubmit = async (data: FormValues) => {
     setSubmitting(true);
     try {
-      const accessKey =
-        (import.meta.env.VITE_WEB3FORMS_KEY as string | undefined) ??
-        "f2566413-9d14-40fa-84fb-7db13c0814e0";
-
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: accessKey,
-          subject: `Nouveau contact depuis le site — ${data.name}`,
-          from_name: "Flaugust Business Website",
-          reply_to: data.email,
-          "Nom complet": data.name,
-          Email: data.email,
-          Organisation: data.organization || "Non précisée",
-          "Objet du projet": data.subject,
-          "Budget estimatif": data.budget,
-          Message: data.message,
-        }),
-      });
-
-      const result = await response.json();
-
+      const result = await submitContactFn({ data });
       if (result.success) {
         toast.success("Message envoyé ! Nous vous répondrons dans les 24h.");
         reset();
       } else {
-        console.error("Web3Forms error:", result);
         toast.error(
-          "Une erreur est survenue. Veuillez réessayer ou nous contacter par WhatsApp.",
+          result.error ?? "Une erreur est survenue. Veuillez réessayer ou nous contacter par WhatsApp.",
         );
       }
     } catch (error) {
-      console.error("Web3Forms error:", error);
+      console.error("Contact submit error:", error);
       toast.error(
         "Une erreur est survenue. Veuillez réessayer ou nous contacter par WhatsApp.",
       );
