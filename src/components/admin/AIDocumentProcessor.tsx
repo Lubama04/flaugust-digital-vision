@@ -6,6 +6,15 @@ import { generateFromDocument } from "@/lib/ai.functions";
 
 export type AITargetType = "blog" | "actualite" | "portfolio";
 
+type GeneratePayload = {
+  targetType: AITargetType;
+  fileName?: string;
+  mimeType?: string;
+  fileDataUrl?: string;
+  textContent?: string;
+  instructions?: string;
+};
+
 export type AIGenerated = {
   title: string;
   excerpt: string;
@@ -75,7 +84,7 @@ export function AIDocumentProcessor({ targetType, onApply, label }: Props) {
     }
     setLoading(true);
     try {
-      let payload: Parameters<typeof callGenerate>[0]["data"];
+      let payload: GeneratePayload;
       if (!file) {
         payload = { targetType, instructions: instructions.trim() };
       } else {
