@@ -19,7 +19,9 @@ export const Route = createFileRoute("/about")({
         content:
           "Notre histoire, notre fondateur LUBAMA Jean Chrysostome ZACEI et nos valeurs.",
       },
+      { property: "og:url", content: "https://www.flaugustbusiness.com/about" },
     ],
+    links: [{ rel: "canonical", href: "https://www.flaugustbusiness.com/about" }],
   }),
   component: AboutPage,
 });

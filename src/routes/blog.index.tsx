@@ -18,7 +18,9 @@ export const Route = createFileRoute("/blog/")({
         property: "og:description",
         content: "Articles et analyses sur la transformation numérique africaine.",
       },
+      { property: "og:url", content: "https://www.flaugustbusiness.com/blog" },
     ],
+    links: [{ rel: "canonical", href: "https://www.flaugustbusiness.com/blog" }],
   }),
   component: BlogPage,
 });

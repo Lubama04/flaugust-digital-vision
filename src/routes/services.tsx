@@ -19,6 +19,28 @@ export const Route = createFileRoute("/services")({
         content:
           "Développement web, SaaS, agents IA, marketing digital pour institutions africaines.",
       },
+      { property: "og:url", content: "https://www.flaugustbusiness.com/services" },
+    ],
+    links: [{ rel: "canonical", href: "https://www.flaugustbusiness.com/services" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          itemListElement: services.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+              "@type": "Service",
+              name: s.title,
+              description: s.shortDesc,
+              provider: { "@type": "Organization", name: "Flaugust Business" },
+              areaServed: "Africa",
+            },
+          })),
+        }),
+      },
     ],
   }),
   component: ServicesPage,

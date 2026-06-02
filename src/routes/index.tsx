@@ -23,7 +23,9 @@ export const Route = createFileRoute("/")({
         content:
           "Développement web, SaaS, agents IA pour gouvernements, ONG, institutions et entreprises.",
       },
+      { property: "og:url", content: "https://www.flaugustbusiness.com/" },
     ],
+    links: [{ rel: "canonical", href: "https://www.flaugustbusiness.com/" }],
   }),
   component: Index,
 });

@@ -9,7 +9,11 @@ export const Route = createFileRoute("/legal")({
         name: "description",
         content: "Mentions légales et informations sur Établissement Flaugust Business.",
       },
+      { property: "og:title", content: "Mentions légales — Flaugust Business" },
+      { property: "og:description", content: "Mentions légales de Flaugust Business." },
+      { property: "og:url", content: "https://www.flaugustbusiness.com/legal" },
     ],
+    links: [{ rel: "canonical", href: "https://www.flaugustbusiness.com/legal" }],
   }),
   component: LegalPage,
 });

@@ -1,0 +1,18 @@
+# Flaugust Business
+
+> Entreprise tchadienne spécialisée dans les solutions numériques, la formation et le conseil pour les institutions africaines et internationales.
+
+Flaugust Business conçoit des sites institutionnels, des plateformes SaaS, des agents IA et des programmes de formation pour gouvernements, ONG, entreprises et institutions religieuses, principalement en Afrique francophone.
+
+## Pages
+
+- [Accueil](/): Présentation de Flaugust Business et de ses solutions numériques.
+- [Services](/services): Développement web & mobile, SaaS, agents IA, marketing digital, conseil et formation.
+- [Réalisations](/portfolio): Projets livrés pour des ONG, institutions et entreprises africaines.
+- [À propos](/about): Histoire, mission, fondateur et valeurs de Flaugust Business.
+- [Blog & Veille](/blog): Articles et analyses sur la transformation numérique en Afrique.
+- [Contact](/contact): Coordonnées et formulaire de contact (réponse sous 24h).
+
+## Optional
+
+- [Mentions légales](/legal): Informations légales sur l'éditeur du site.

@@ -6,6 +6,12 @@ import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo-flaugust.png";
 
 export const Route = createFileRoute("/admin/login")({
+  head: () => ({
+    meta: [
+      { title: "Connexion admin — Flaugust Business" },
+      { name: "robots", content: "noindex, nofollow" },
+    ],
+  }),
   beforeLoad: async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (user) throw redirect({ to: "/admin" });

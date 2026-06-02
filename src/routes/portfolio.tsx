@@ -20,7 +20,9 @@ export const Route = createFileRoute("/portfolio")({
         property: "og:description",
         content: "Portfolio de projets institutionnels en Afrique francophone.",
       },
+      { property: "og:url", content: "https://www.flaugustbusiness.com/portfolio" },
     ],
+    links: [{ rel: "canonical", href: "https://www.flaugustbusiness.com/portfolio" }],
   }),
   component: PortfolioPage,
 });

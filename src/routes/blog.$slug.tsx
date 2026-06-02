@@ -18,13 +18,33 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ loaderData }) => {
     const post = loaderData?.post;
     if (!post) return { meta: [{ title: "Article — Flaugust Business" }] };
+    const url = `https://www.flaugustbusiness.com/blog/${post.slug}`;
     return {
       meta: [
         { title: `${post.title} — Flaugust Business` },
         { name: "description", content: post.excerpt ?? "" },
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.excerpt ?? "" },
+        { property: "og:type", content: "article" },
+        { property: "og:url", content: url },
         ...(post.cover_url ? [{ property: "og:image", content: post.cover_url }, { name: "twitter:image", content: post.cover_url }] : []),
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.excerpt ?? undefined,
+            image: post.cover_url ?? undefined,
+            datePublished: post.published_at ?? undefined,
+            dateModified: post.updated_at ?? post.published_at ?? undefined,
+            author: { "@type": "Person", name: post.author },
+            mainEntityOfPage: url,
+          }),
+        },
       ],
     };
   },

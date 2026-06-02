@@ -10,20 +10,17 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import appCss from "../styles.css?url";
 
 // ============================================================
-// MÉTADONNÉES SEO — NE PAS MODIFIER
-// Chaque constante DOIT rester sur UNE SEULE ligne
+// MÉTADONNÉES SEO racine — valeurs par défaut sitewide.
+// Les titres / descriptions / og:url / canonical spécifiques
+// à chaque page sont définis dans les routes individuelles.
 // ============================================================
-const SEO_TITLE = "Flaugust Business — Solutions Numériques, Formation & Commerce";
+const SEO_TITLE = "Flaugust Business — Solutions numériques pour l'Afrique";
 const SEO_DESCRIPTION =
-  "Portail officiel de Flaugust Business — l'entreprise tchadienne qui place l'excellence numérique au service de toutes les institutions. Votre partenaire de confiance pour la transformation digitale, la formation et le commerce, en Afrique et dans le monde.";
-const SEO_SHORT_DESC =
-  "Portail officiel de Flaugust Business — l'entreprise tchadienne qui place l'excellence numérique au service de toutes les institutions.";
+  "Flaugust Business, entreprise tchadienne : développement web, SaaS, agents IA, formation et conseil pour les institutions africaines.";
 const SEO_KEYWORDS =
-  "développement web, applications mobiles, SaaS, intelligence artificielle, formation, gestion de projets, import-export, transformation digitale, Afrique, Tchad, institutions";
-const SEO_IMAGE =
-  "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/0ea9f739-7c6f-4f56-b0cf-ed8e948337a5";
-const SEO_URL = "https://www.flaugustbusiness.com";
+  "développement web, SaaS, intelligence artificielle, formation, transformation digitale, Afrique, Tchad, institutions";
 const SEO_AUTHOR = "LUBAMA Jean Chrysostome ZACEI";
+const SITE_URL = "https://www.flaugustbusiness.com";
 
 interface RouterContext {
   queryClient: QueryClient;
@@ -61,24 +58,13 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { name: "keywords", content: SEO_KEYWORDS },
       { name: "robots", content: "index, follow" },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: SEO_URL },
       { property: "og:site_name", content: "Flaugust Business" },
       { property: "og:locale", content: "fr_FR" },
       { property: "og:title", content: SEO_TITLE },
       { property: "og:description", content: SEO_DESCRIPTION },
-      { property: "og:image", content: SEO_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: SEO_TITLE },
-      { name: "twitter:description", content: SEO_SHORT_DESC },
-      { name: "twitter:image", content: SEO_IMAGE },
-      { title: "Flaugust Business — Solutions numériques" },
-      { property: "og:title", content: "Flaugust Business — Solutions numériques" },
-      { name: "twitter:title", content: "Flaugust Business — Solutions numériques" },
-      { name: "description", content: "Portail officiel de Flaugust Business, entreprise tchadienne engagée pour une excellence numérique au service de toutes les institutions." },
-      { property: "og:description", content: "Portail officiel de Flaugust Business, entreprise tchadienne engagée pour une excellence numérique au service de toutes les institutions." },
-      { name: "twitter:description", content: "Portail officiel de Flaugust Business, entreprise tchadienne engagée pour une excellence numérique au service de toutes les institutions." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/RXeaIRXRXygMsVCHE756ePns84E3/social-images/social-1776598168591-ChatGPT_Image_19_avr._2026,_12_29_07.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/RXeaIRXRXygMsVCHE756ePns84E3/social-images/social-1776598168591-ChatGPT_Image_19_avr._2026,_12_29_07.webp" },
+      { name: "twitter:description", content: SEO_DESCRIPTION },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -87,6 +73,31 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Flaugust Business",
+          url: SITE_URL,
+          logo: `${SITE_URL}/favicon.ico`,
+          founder: { "@type": "Person", name: SEO_AUTHOR },
+          areaServed: "Africa",
+          sameAs: [],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Flaugust Business",
+          url: SITE_URL,
+          inLanguage: "fr-FR",
+        }),
       },
     ],
   }),
