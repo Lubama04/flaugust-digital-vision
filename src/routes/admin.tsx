@@ -10,6 +10,7 @@ import {
   BarChart3,
   LogOut,
   ExternalLink,
+  Megaphone,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -37,6 +38,7 @@ const links: LinkItem[] = [
   { to: "/admin/portfolio", label: "Portfolio", icon: FolderOpen },
   { to: "/admin/services", label: "Services", icon: Wrench },
   { to: "/admin/blog", label: "Blog", icon: FileText },
+  { to: "/admin/actualites", label: "Actualités", icon: Megaphone },
   { to: "/admin/messages", label: "Messages", icon: Mail },
   { to: "/admin/testimonials", label: "Témoignages", icon: Star },
   { to: "/admin/stats", label: "Statistiques", icon: BarChart3 },
