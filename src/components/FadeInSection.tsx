@@ -23,6 +23,7 @@ export function FadeInSection({
       variants={variants}
       transition={{ duration: 0.6, ease: "easeOut", delay }}
       className={className}
+      style={{ willChange: "transform, opacity" }}
     >
       {children}
     </motion.div>
