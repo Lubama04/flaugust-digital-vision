@@ -2,7 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export async function uploadImage(
   file: File,
-  folder: "portfolio" | "blog" | "avatars",
+  folder: "portfolio" | "blog" | "avatars" | "actualites",
 ): Promise<string> {
   const allowed = ["image/jpeg", "image/png", "image/webp"];
   if (!allowed.includes(file.type)) {

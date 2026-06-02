@@ -40,6 +40,7 @@ export function Footer() {
               ["/services", "Services"],
               ["/portfolio", "Réalisations"],
               ["/blog", "Blog"],
+              ["/actualites", "Actualités"],
               ["/about", "À propos"],
               ["/contact", "Contact"],
             ].map(([to, label]) => (
