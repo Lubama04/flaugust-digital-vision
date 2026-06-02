@@ -22,7 +22,9 @@ export const Route = createFileRoute("/contact")({
         property: "og:description",
         content: "Discutons de votre projet — réponse garantie sous 24h.",
       },
+      { property: "og:url", content: "https://www.flaugustbusiness.com/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://www.flaugustbusiness.com/contact" }],
   }),
   component: ContactPage,
 });
