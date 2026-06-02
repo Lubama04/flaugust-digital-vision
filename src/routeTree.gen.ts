@@ -25,6 +25,7 @@ import { Route as AdminServicesRouteImport } from './routes/admin.services'
 import { Route as AdminPortfolioRouteImport } from './routes/admin.portfolio'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminActualitesRouteImport } from './routes/admin.actualites'
 import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
 import { Route as AdminBlogNewRouteImport } from './routes/admin.blog.new'
 import { Route as AdminBlogIdRouteImport } from './routes/admin.blog.$id'
@@ -109,6 +110,11 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminActualitesRoute = AdminActualitesRouteImport.update({
+  id: '/actualites',
+  path: '/actualites',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminBlogIndexRoute = AdminBlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -133,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/legal': typeof LegalRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/admin/actualites': typeof AdminActualitesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/portfolio': typeof AdminPortfolioRoute
@@ -153,6 +160,7 @@ export interface FileRoutesByTo {
   '/legal': typeof LegalRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/admin/actualites': typeof AdminActualitesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/portfolio': typeof AdminPortfolioRoute
@@ -175,6 +183,7 @@ export interface FileRoutesById {
   '/legal': typeof LegalRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/admin/actualites': typeof AdminActualitesRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/portfolio': typeof AdminPortfolioRoute
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
     | '/legal'
     | '/portfolio'
     | '/services'
+    | '/admin/actualites'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/portfolio'
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
     | '/legal'
     | '/portfolio'
     | '/services'
+    | '/admin/actualites'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/portfolio'
@@ -239,6 +250,7 @@ export interface FileRouteTypes {
     | '/legal'
     | '/portfolio'
     | '/services'
+    | '/admin/actualites'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/portfolio'
@@ -379,6 +391,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/actualites': {
+      id: '/admin/actualites'
+      path: '/actualites'
+      fullPath: '/admin/actualites'
+      preLoaderRoute: typeof AdminActualitesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/blog/': {
       id: '/admin/blog/'
       path: '/blog'
@@ -404,6 +423,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminActualitesRoute: typeof AdminActualitesRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
   AdminPortfolioRoute: typeof AdminPortfolioRoute
@@ -417,6 +437,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminActualitesRoute: AdminActualitesRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMessagesRoute: AdminMessagesRoute,
   AdminPortfolioRoute: AdminPortfolioRoute,
