@@ -120,9 +120,14 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container-page flex flex-col items-center justify-between gap-3 py-5 text-xs text-white/50 md:flex-row">
           <p>© 2026 Établissement Flaugust Business. Tous droits réservés.</p>
-          <Link to="/legal" className="hover:text-white">
-            Mentions légales
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link to="/legal" className="hover:text-white">
+              Mentions légales
+            </Link>
+            <Link to="/admin" className="hover:text-white">
+              Espace Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

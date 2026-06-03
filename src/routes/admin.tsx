@@ -11,6 +11,9 @@ import {
   LogOut,
   ExternalLink,
   Megaphone,
+  Share2,
+  Settings,
+  TrendingUp,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -42,6 +45,9 @@ const links: LinkItem[] = [
   { to: "/admin/messages", label: "Messages", icon: Mail },
   { to: "/admin/testimonials", label: "Témoignages", icon: Star },
   { to: "/admin/stats", label: "Statistiques", icon: BarChart3 },
+  { to: "/admin/analytics", label: "Analytics", icon: TrendingUp },
+  { to: "/admin/social", label: "Publications", icon: Share2 },
+  { to: "/admin/settings", label: "Paramètres", icon: Settings },
 ];
 
 function AdminLayout() {
