@@ -1,11 +1,13 @@
 import { Outlet, Link, createRootRouteWithContext, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 
 import appCss from "../styles.css?url";
 
@@ -137,6 +139,26 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const location = useLocation();
   const isAdmin = location.pathname.startsWith("/admin");
+
+  useEffect(() => {
+    if (isAdmin) return;
+    if (typeof window === "undefined") return;
+    try {
+      const w = window.innerWidth;
+      const device = w < 640 ? "mobile" : w < 1024 ? "tablet" : "desktop";
+      supabase
+        .from("page_views")
+        .insert({
+          page: location.pathname,
+          referrer: document.referrer || null,
+          device,
+        })
+        .then(() => {})
+        .then(undefined, () => {});
+    } catch {
+      // ignore tracking errors
+    }
+  }, [location.pathname, isAdmin]);
 
   return (
     <QueryClientProvider client={queryClient}>
