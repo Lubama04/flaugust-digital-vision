@@ -22,10 +22,13 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
 import { Route as AdminStatsRouteImport } from './routes/admin.stats'
+import { Route as AdminSocialRouteImport } from './routes/admin.social'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminServicesRouteImport } from './routes/admin.services'
 import { Route as AdminPortfolioRouteImport } from './routes/admin.portfolio'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 import { Route as AdminActualitesRouteImport } from './routes/admin.actualites'
 import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
 import { Route as AdminBlogNewRouteImport } from './routes/admin.blog.new'
@@ -96,6 +99,16 @@ const AdminStatsRoute = AdminStatsRouteImport.update({
   path: '/stats',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSocialRoute = AdminSocialRouteImport.update({
+  id: '/social',
+  path: '/social',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminServicesRoute = AdminServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -114,6 +127,11 @@ const AdminMessagesRoute = AdminMessagesRouteImport.update({
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminActualitesRoute = AdminActualitesRouteImport.update({
@@ -147,10 +165,13 @@ export interface FileRoutesByFullPath {
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/admin/actualites': typeof AdminActualitesRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/portfolio': typeof AdminPortfolioRoute
   '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/social': typeof AdminSocialRoute
   '/admin/stats': typeof AdminStatsRoute
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -169,10 +190,13 @@ export interface FileRoutesByTo {
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/admin/actualites': typeof AdminActualitesRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/portfolio': typeof AdminPortfolioRoute
   '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/social': typeof AdminSocialRoute
   '/admin/stats': typeof AdminStatsRoute
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -193,10 +217,13 @@ export interface FileRoutesById {
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
   '/admin/actualites': typeof AdminActualitesRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/portfolio': typeof AdminPortfolioRoute
   '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/social': typeof AdminSocialRoute
   '/admin/stats': typeof AdminStatsRoute
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -218,10 +245,13 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/services'
     | '/admin/actualites'
+    | '/admin/analytics'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/portfolio'
     | '/admin/services'
+    | '/admin/settings'
+    | '/admin/social'
     | '/admin/stats'
     | '/admin/testimonials'
     | '/blog/$slug'
@@ -240,10 +270,13 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/services'
     | '/admin/actualites'
+    | '/admin/analytics'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/portfolio'
     | '/admin/services'
+    | '/admin/settings'
+    | '/admin/social'
     | '/admin/stats'
     | '/admin/testimonials'
     | '/blog/$slug'
@@ -263,10 +296,13 @@ export interface FileRouteTypes {
     | '/portfolio'
     | '/services'
     | '/admin/actualites'
+    | '/admin/analytics'
     | '/admin/login'
     | '/admin/messages'
     | '/admin/portfolio'
     | '/admin/services'
+    | '/admin/settings'
+    | '/admin/social'
     | '/admin/stats'
     | '/admin/testimonials'
     | '/blog/$slug'
@@ -383,6 +419,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminStatsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/social': {
+      id: '/admin/social'
+      path: '/social'
+      fullPath: '/admin/social'
+      preLoaderRoute: typeof AdminSocialRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/services': {
       id: '/admin/services'
       path: '/services'
@@ -409,6 +459,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/admin/login'
       preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/actualites': {
@@ -444,10 +501,13 @@ declare module '@tanstack/react-router' {
 
 interface AdminRouteChildren {
   AdminActualitesRoute: typeof AdminActualitesRoute
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
   AdminPortfolioRoute: typeof AdminPortfolioRoute
   AdminServicesRoute: typeof AdminServicesRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminSocialRoute: typeof AdminSocialRoute
   AdminStatsRoute: typeof AdminStatsRoute
   AdminTestimonialsRoute: typeof AdminTestimonialsRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -458,10 +518,13 @@ interface AdminRouteChildren {
 
 const AdminRouteChildren: AdminRouteChildren = {
   AdminActualitesRoute: AdminActualitesRoute,
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMessagesRoute: AdminMessagesRoute,
   AdminPortfolioRoute: AdminPortfolioRoute,
   AdminServicesRoute: AdminServicesRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminSocialRoute: AdminSocialRoute,
   AdminStatsRoute: AdminStatsRoute,
   AdminTestimonialsRoute: AdminTestimonialsRoute,
   AdminIndexRoute: AdminIndexRoute,
