@@ -13,6 +13,21 @@ const ContactSchema = z.object({
 export const submitContact = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => ContactSchema.parse(input))
   .handler(async ({ data }) => {
+    // Save to Supabase as secondary store (best-effort, never blocks user).
+    try {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      await supabaseAdmin.from("contact_messages").insert({
+        full_name: data.name,
+        email: data.email,
+        organization: data.organization ?? null,
+        subject: data.subject,
+        budget: data.budget,
+        message: data.message,
+      });
+    } catch (err) {
+      console.error("Failed to log contact_message:", err);
+    }
+
     const accessKey = process.env.WEB3FORMS_KEY;
     if (!accessKey) {
       console.error("WEB3FORMS_KEY is not configured");
