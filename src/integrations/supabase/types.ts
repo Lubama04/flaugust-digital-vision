@@ -134,6 +134,24 @@ export type Database = {
         }
         Relationships: []
       }
+      integration_credentials: {
+        Row: {
+          key: string
+          updated_at: string
+          value: string | null
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: string | null
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: string | null
+        }
+        Relationships: []
+      }
       page_views: {
         Row: {
           created_at: string
@@ -350,6 +368,36 @@ export type Database = {
           key?: string
           updated_at?: string
           value?: string | null
+        }
+        Relationships: []
+      }
+      social_posts: {
+        Row: {
+          content: string
+          created_at: string
+          error: string | null
+          id: string
+          platform: string
+          post_url: string | null
+          status: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          error?: string | null
+          id?: string
+          platform: string
+          post_url?: string | null
+          status?: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          error?: string | null
+          id?: string
+          platform?: string
+          post_url?: string | null
+          status?: string
         }
         Relationships: []
       }
