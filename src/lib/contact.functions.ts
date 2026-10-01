@@ -8,11 +8,36 @@ const ContactSchema = z.object({
   subject: z.string().min(1).max(100),
   budget: z.string().min(1).max(100),
   message: z.string().trim().min(10).max(2000),
+  website: z.string().max(200).optional(),
 });
 
 export const submitContact = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => ContactSchema.parse(input))
   .handler(async ({ data }) => {
+    // Honeypot: bots fill the hidden field — pretend success, do nothing.
+    if (data.website && data.website.trim().length > 0) {
+      return { success: true as const, error: null };
+    }
+
+    // Rate limit: max 3 messages per email per hour.
+    try {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+      const { count } = await supabaseAdmin
+        .from("contact_messages")
+        .select("id", { count: "exact", head: true })
+        .ilike("email", data.email)
+        .gte("created_at", since);
+      if ((count ?? 0) >= 3) {
+        return {
+          success: false as const,
+          error: "Trop de messages envoyés avec cette adresse e-mail. Veuillez réessayer dans une heure ou nous contacter par WhatsApp.",
+        };
+      }
+    } catch (err) {
+      console.error("Rate limit check failed:", err);
+    }
+
     // Save to Supabase as secondary store (best-effort, never blocks user).
     try {
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

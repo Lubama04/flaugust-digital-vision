@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireAdmin } from "@/integrations/supabase/require-admin";
 
 const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
 
@@ -15,6 +16,7 @@ async function getAdmin() {
 // ---------- Credentials (server-only) ----------
 
 export const saveCredential = createServerFn({ method: "POST" })
+  .middleware([requireAdmin])
   .inputValidator((input: unknown) =>
     z.object({ key: z.string().min(1).max(80), value: z.string().max(8000) }).parse(input),
   )
@@ -28,6 +30,7 @@ export const saveCredential = createServerFn({ method: "POST" })
   });
 
 export const getCredentialStatus = createServerFn({ method: "POST" })
+  .middleware([requireAdmin])
   .inputValidator((input: unknown) =>
     z.object({ keys: z.array(z.string().max(80)).max(20) }).parse(input),
   )
@@ -56,6 +59,7 @@ const AdaptInput = z.object({
 });
 
 export const adaptForPlatform = createServerFn({ method: "POST" })
+  .middleware([requireAdmin])
   .inputValidator((input: unknown) => AdaptInput.parse(input))
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;
@@ -162,6 +166,7 @@ async function publishFacebook(content: string): Promise<{ ok: true; url: string
 }
 
 export const publishToSocial = createServerFn({ method: "POST" })
+  .middleware([requireAdmin])
   .inputValidator((input: unknown) => PublishInput.parse(input))
   .handler(async ({ data }) => {
     const platform: Platform = data.platform;

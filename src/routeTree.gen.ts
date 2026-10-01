@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as LegalRouteImport } from './routes/legal'
@@ -34,6 +35,11 @@ import { Route as AdminBlogIndexRouteImport } from './routes/admin.blog.index'
 import { Route as AdminBlogNewRouteImport } from './routes/admin.blog.new'
 import { Route as AdminBlogIdRouteImport } from './routes/admin.blog.$id'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -164,6 +170,7 @@ export interface FileRoutesByFullPath {
   '/legal': typeof LegalRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/actualites': typeof AdminActualitesRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -189,6 +196,7 @@ export interface FileRoutesByTo {
   '/legal': typeof LegalRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/actualites': typeof AdminActualitesRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -216,6 +224,7 @@ export interface FileRoutesById {
   '/legal': typeof LegalRoute
   '/portfolio': typeof PortfolioRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/actualites': typeof AdminActualitesRoute
   '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -244,6 +253,7 @@ export interface FileRouteTypes {
     | '/legal'
     | '/portfolio'
     | '/services'
+    | '/sitemap.xml'
     | '/admin/actualites'
     | '/admin/analytics'
     | '/admin/login'
@@ -269,6 +279,7 @@ export interface FileRouteTypes {
     | '/legal'
     | '/portfolio'
     | '/services'
+    | '/sitemap.xml'
     | '/admin/actualites'
     | '/admin/analytics'
     | '/admin/login'
@@ -295,6 +306,7 @@ export interface FileRouteTypes {
     | '/legal'
     | '/portfolio'
     | '/services'
+    | '/sitemap.xml'
     | '/admin/actualites'
     | '/admin/analytics'
     | '/admin/login'
@@ -322,12 +334,20 @@ export interface RootRouteChildren {
   LegalRoute: typeof LegalRoute
   PortfolioRoute: typeof PortfolioRoute
   ServicesRoute: typeof ServicesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
@@ -544,9 +564,19 @@ const rootRouteChildren: RootRouteChildren = {
   LegalRoute: LegalRoute,
   PortfolioRoute: PortfolioRoute,
   ServicesRoute: ServicesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
