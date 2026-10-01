@@ -4,6 +4,8 @@ import { ChevronLeft, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDate } from "@/lib/dateUtils";
 
+const DEFAULT_OG_IMAGE = "https://www.flaugustbusiness.com/logo-flaugust.png";
+
 export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
     const { data, error } = await supabase
@@ -27,7 +29,9 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: post.excerpt ?? "" },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
-        ...(post.cover_url ? [{ property: "og:image", content: post.cover_url }, { name: "twitter:image", content: post.cover_url }] : []),
+        { property: "og:image", content: post.cover_url || DEFAULT_OG_IMAGE },
+        { name: "twitter:image", content: post.cover_url || DEFAULT_OG_IMAGE },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
       links: [{ rel: "canonical", href: url }],
       scripts: [
@@ -38,12 +42,12 @@ export const Route = createFileRoute("/blog/$slug")({
             "@type": "Article",
             headline: post.title,
             description: post.excerpt ?? undefined,
-            image: post.cover_url ?? undefined,
+            image: post.cover_url || DEFAULT_OG_IMAGE,
             datePublished: post.published_at ?? undefined,
             dateModified: post.updated_at ?? post.published_at ?? undefined,
             author: { "@type": "Person", name: post.author },
             mainEntityOfPage: url,
-          }),
+          }).replace(/</g, "\\u003c"),
         },
       ],
     };

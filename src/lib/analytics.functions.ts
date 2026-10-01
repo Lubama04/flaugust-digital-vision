@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireAdmin } from "@/integrations/supabase/require-admin";
 
 const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
 
@@ -12,6 +13,7 @@ const Input = z.object({
 });
 
 export const interpretAnalytics = createServerFn({ method: "POST" })
+  .middleware([requireAdmin])
   .inputValidator((input: unknown) => Input.parse(input))
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;

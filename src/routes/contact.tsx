@@ -50,6 +50,7 @@ const schema = z.object({
     .trim()
     .min(10, "Message trop court (10 caractères minimum)")
     .max(2000, "Maximum 2000 caractères"),
+  website: z.string().max(200).optional(),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -135,6 +136,10 @@ function ContactPage() {
               className="space-y-5 rounded-2xl border border-border bg-card p-6 md:p-8"
               noValidate
             >
+              <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+                <label htmlFor="website">Ne pas remplir</label>
+                <input id="website" type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
+              </div>
               <div className="grid gap-5 md:grid-cols-2">
                 <Field label="Prénom et Nom *" error={errors.name?.message}>
                   <input className={inputCls} {...register("name")} placeholder="Votre nom" />

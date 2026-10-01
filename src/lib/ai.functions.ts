@@ -1,8 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { requireAdmin } from "@/integrations/supabase/require-admin";
 
 const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
 const MODEL = "google/gemini-2.5-pro";
+
+const ALLOWED_FILE_MIME = ["image/png", "image/jpeg", "image/webp", "application/pdf"];
 
 const TargetType = z.enum(["blog", "actualite", "portfolio"]);
 
@@ -11,10 +14,13 @@ const DocInput = z.object({
   fileName: z.string().max(255).optional(),
   mimeType: z.string().max(120).optional(),
   // Pour PDF / images : data URL base64. Pour TXT/DOCX extrait : texte brut.
-  fileDataUrl: z.string().max(15_000_000).optional(),
+  fileDataUrl: z.string().max(10_000_000).optional(),
   textContent: z.string().max(200_000).optional(),
   instructions: z.string().max(2000).optional(),
-});
+}).refine(
+  (d) => !d.fileDataUrl || (d.mimeType !== undefined && ALLOWED_FILE_MIME.includes(d.mimeType)),
+  { message: "Type de fichier non autorisé (PNG, JPEG, WEBP ou PDF uniquement)." },
+);
 
 const TARGET_GUIDELINES: Record<z.infer<typeof TargetType>, string> = {
   blog:
@@ -73,6 +79,7 @@ function buildMultimodalContent(input: z.infer<typeof DocInput>) {
 }
 
 export const generateFromDocument = createServerFn({ method: "POST" })
+  .middleware([requireAdmin])
   .inputValidator((input: unknown) => DocInput.parse(input))
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;
@@ -151,6 +158,7 @@ const BriefingInput = z.object({
 });
 
 export const dailyBriefing = createServerFn({ method: "POST" })
+  .middleware([requireAdmin])
   .inputValidator((input: unknown) => BriefingInput.parse(input))
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;
